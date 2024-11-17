@@ -1,28 +1,19 @@
-"use client"
+import React from 'react';
+import {NextIntlClientProvider} from "next-intl";
+import NavbarFooterLayout from "@/app/[locale]/NavbarFooterLayout";
 import "./globals.css";
-import {Footer, Navbar} from "@/components";
-import React, {useEffect, useState} from "react";
-import {usePathname} from "next/navigation";
 
-
-export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+const RootLayout = ({
+                      children,
+                      locale,
+                      messages
+                    }: Readonly<{
   children: React.ReactNode;
-}>) {
-  const pathname = usePathname()
-  const [isHomePage, setIsHomePage] = useState(false);
-
-  useEffect(() => {
-    if (pathname === "/") {
-      setIsHomePage(true);
-    } else {
-      setIsHomePage(false);
-    }
-  }, [pathname]);
-
+  locale?: string;
+  messages?: any;
+}>) => {
   return (
-      <html lang="en" suppressHydrationWarning={true}>
+      <html lang={locale} suppressHydrationWarning={true}>
       <head>
         <link
             rel="stylesheet"
@@ -30,10 +21,18 @@ export default function RootLayout({
         />
       </head>
       <body>
-      <Navbar isHomePage={isHomePage} />
-      {children}
-      <Footer />
+      {locale && messages ? (
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <NavbarFooterLayout>
+              {children}
+            </NavbarFooterLayout>
+          </NextIntlClientProvider>
+      ) : (
+          children
+      )}
       </body>
       </html>
   );
-}
+};
+
+export default RootLayout;

@@ -1,7 +1,10 @@
 import React from 'react'
 import {HeroSection} from "@/components";
+import {setRequestLocale} from "next-intl/server";
 
-const Page = () => {
+
+const Page = ({params: {locale}}: {params: {locale: string}}) => {
+      setRequestLocale(locale);
   return (
       <div>
         <HeroSection/>

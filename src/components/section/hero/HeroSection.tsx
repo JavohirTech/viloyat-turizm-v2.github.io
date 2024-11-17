@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {useEffect, useState} from "react";
+import {motion, AnimatePresence} from "framer-motion";
 import Link from "next/link";
 
 export function HeroSection() {
@@ -41,52 +41,57 @@ export function HeroSection() {
           <motion.div
               key={currentIndex}
               className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
-              style={{ backgroundImage: `url(${heroData[currentIndex].background})` }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
+              style={{backgroundImage: `url(${heroData[currentIndex].background})`}}
+              initial={{opacity: 0}}
+              animate={{opacity: 1}}
+              exit={{opacity: 0}}
+              transition={{duration: 1}}
           />
         </AnimatePresence>
 
-        <div className="absolute inset-0 bg-black bg-opacity-50" style={{ pointerEvents: "none" }}></div>
+        <div className="absolute inset-0 bg-black bg-opacity-50" style={{pointerEvents: "none"}}></div>
 
-        <div className="relative mx-auto z-10 container flex flex-col items-start justify-center text-white px-8 py-4 min-h-screen">
+        <div
+            className="relative mx-auto z-10 container flex flex-col items-start justify-center text-white px-8 py-4 min-h-screen">
           <div className="grid grid-cols-1 sm:grid-cols-2 justify-between h-screen w-full items-center gap-8">
             <div>
               <motion.h1
                   className="text-3xl sm:text-4xl md:text-6xl font-bold"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
-                  transition={{ duration: 1 }}
+                  initial={{opacity: 0, y: 50}}
+                  animate={{opacity: 1, y: 0}}
+                  exit={{opacity: 0, y: 50}}
+                  transition={{duration: 1}}
               >
                 {heroData[currentIndex].title}
               </motion.h1>
 
               <motion.p
                   className="mt-4 text-lg sm:text-xl md:text-2xl"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
-                  transition={{ duration: 1, delay: 0.5 }}
+                  initial={{opacity: 0, y: 50}}
+                  animate={{opacity: 1, y: 0}}
+                  exit={{opacity: 0, y: 50}}
+                  transition={{duration: 1, delay: 0.5}}
               >
                 {heroData[currentIndex].description}
               </motion.p>
 
-              <div className="mt-6">
+              <motion.div initial={{opacity: 0, y: 50}}
+                          animate={{opacity: 1, y: 0}}
+                          exit={{opacity: 0, y: 50}}
+                          transition={{duration: 1, delay: 1}} className="mt-6">
                 <Link
                     href={heroData[currentIndex].link}
                     className="px-6 py-3 bg-white hover:opacity-80 transition-all text-black rounded-full items-center space-x-3"
                 >
                   <span>Batafsil o`qish</span> <i className="fa-sharp fa-regular fa-arrow-right"></i>
                 </Link>
-              </div>
+              </motion.div>
             </div>
 
             <div className="min-w-full text-end">
               <div>
-                <div className="flex flex-row md:flex-col lg:flex-col items-end space-x-4 md:space-y-4 lg:space-y-4 sm:space-y-2">
+                <div
+                    className="flex flex-row md:flex-col lg:flex-col items-end space-x-4 md:space-y-4 lg:space-y-4 sm:space-y-2">
                   <i className="fab fa-instagram text-2xl sm:text-xl btn-glass rounded-lg"></i>
                   <i className="fa-brands fa-square-facebook text-2xl sm:text-xl btn-glass rounded-lg"></i>
                   <i className="fab fa-telegram btn-glass text-2xl sm:text-xl rounded-lg"></i>
