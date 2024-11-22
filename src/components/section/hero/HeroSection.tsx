@@ -6,7 +6,7 @@ import Link from "next/link";
 export function HeroSection() {
   const heroData = [
     {
-      title: "Namanganing Yashirin Xazinalarini Kashf Eting",
+      title: "Namanganing yashirin xazinalarini kashf eting",
       description: "Namangan, O‘zbekistonning Farg‘ona vodiysida joylashgan, madaniyat va tabiiy go‘zalliklarni o‘zida jamlagan shahar.",
       background: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Mulla_Qirg%CA%BBiz_madrasasi_04.jpg",
       link: "#explore-namangan",
@@ -56,7 +56,7 @@ export function HeroSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 justify-between h-screen w-full items-center gap-8">
             <div>
               <motion.h1
-                  className="text-3xl sm:text-4xl md:text-6xl font-bold"
+                  className="font-baskervville text-3xl sm:text-4xl md:text-6xl font-bold"
                   initial={{opacity: 0, y: 50}}
                   animate={{opacity: 1, y: 0}}
                   exit={{opacity: 0, y: 50}}

@@ -8,6 +8,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ['PT Serif', 'serif'],
+        baskervville: ['Baskervville', 'serif'],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

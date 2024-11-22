@@ -2,6 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'PT Serif';
+    src: url('/fonts/PTSerif-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PT Serif';
+    src: url('/fonts/PTSerif-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PT Serif';
+    src: url('/fonts/PTSerif-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'PT Serif';
+    src: url('/fonts/PTSerif-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+
+/* Baskervville */
+@font-face {
+    font-family: 'Baskervville';
+    src: url('/fonts/Baskervville-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Baskervville';
+    src: url('/fonts/Baskervville-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+
+
+
 /*:root {*/
 /*  --background: #ffffff;*/
 /*  --foreground: #171717;*/
