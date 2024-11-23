@@ -1,5 +1,5 @@
 import React from 'react';
-import {NextIntlClientProvider} from "next-intl";
+import {AbstractIntlMessages, NextIntlClientProvider} from "next-intl";
 import NavbarFooterLayout from "@/app/[locale]/NavbarFooterLayout";
 import "./globals.css";
 
@@ -10,7 +10,7 @@ const RootLayout = ({
                     }: Readonly<{
   children: React.ReactNode;
   locale?: string;
-  messages?: any;
+  messages?:AbstractIntlMessages;
 }>) => {
   return (
       <html lang={locale} suppressHydrationWarning={true}>

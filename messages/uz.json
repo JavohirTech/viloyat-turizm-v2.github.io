@@ -1,4 +1,12 @@
 {
+  "Asosiy sahifa": "Asosiy sahifa",
+  "Yangiliklar": "Yangiliklar",
+  "Gullar bayrami": "Gullar bayrami",
+  "Tur paketlar": "Tur paketlar",
+  "Biz haqimizda": "Biz haqimizda",
   "home": "Bosh sahifa",
-    "about": "Biz haqimizda"
+    "news": "Yangiliklar",
+    "flower-festival": "Gullar bayrami",
+    "tour-packages": "Tur paketlar",
+    "about-us": "Biz haqimizda"
 }

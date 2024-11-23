@@ -20,7 +20,7 @@ export default async function LocaleLayout({
 }>) {
   const messages = await getMessages();
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as "uz" | "ru" | "en")) {
     notFound();
   }
 

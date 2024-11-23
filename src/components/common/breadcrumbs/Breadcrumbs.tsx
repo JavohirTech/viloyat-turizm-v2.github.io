@@ -21,7 +21,7 @@ export const Breadcrumbs: React.FC = () => {
             return (
                 <li key={href} className="flex items-center">
                   <span className="mx-2">/</span>
-                  <Link href={href}>{decodeURIComponent(value)}</Link>
+                  <Link href={href}>{t(decodeURIComponent(value))}</Link>
                 </li>
             );
           })}

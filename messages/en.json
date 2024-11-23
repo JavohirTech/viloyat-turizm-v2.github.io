@@ -1,4 +1,12 @@
 {
-  "home": "Home",
-    "about": "About"
+  "Asosiy sahifa": "Main",
+  "Yangiliklar": "News",
+  "Gullar bayrami": "Flower festival",
+  "Tur paketlar": "Tour packages",
+  "Biz haqimizda": "About us",
+  "home": "Main",
+  "news": "News",
+  "flower-festival": "Flower festival",
+  "tour-packages": "Tour packages",
+  "about-us": "About us"
 }

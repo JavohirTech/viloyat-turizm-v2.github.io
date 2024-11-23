@@ -86,7 +86,7 @@ export function Navbar({ isHomePage }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const activeLocale = useLocale() as Language
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(activeLocale)
-  const [isPending, startTransition] = useTransition()
+  const [_, startTransition] = useTransition()
 
   const dropdownRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)

@@ -1,4 +1,12 @@
 {
-  "home": "Главная",
-    "about": "О нас"
+  "Asosiy sahifa": "Главная страница",
+  "Yangiliklar": "Новости",
+  "Gullar bayrami": "День цветов",
+  "Tur paketlar": "Тур пакеты",
+  "Biz haqimizda": "О нас",
+    "home": "Главная страница",
+    "news": "Новости",
+    "flower-festival": "День цветов",
+    "tour-packages": "Тур пакеты",
+    "about-us": "О нас"
 }
