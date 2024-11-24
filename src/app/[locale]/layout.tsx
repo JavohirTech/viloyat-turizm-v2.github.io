@@ -16,7 +16,6 @@ export default async function LocaleLayout({
   const { locale } = await params;
   const messages = await getMessages();
 
-  // Check if the locale is valid
   if (!routing.locales.includes(locale as "uz" | "ru" | "en")) {
     notFound();
   }
