@@ -105,7 +105,7 @@ export const Footer = () => {
             </div>
           </div>
           <hr className={"bg-white my-10"}/>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-col md:flex-row lg:flex-row space-y-5 md:space-y-0 lg:space-y-0">
             <p>&copy; 2024 Namangan Turizm. Barcha huquqlar himoyalangan.</p>
             <p>Sayt ishlab chiqaruvchi <a href={"Fazo"}>Fazo Software Service MCHJ</a></p>
           </div>

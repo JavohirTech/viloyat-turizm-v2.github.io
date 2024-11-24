@@ -24,12 +24,12 @@ export const NewsSection: React.FC = () => {
 
   return (
       <div>
-        <div className={"container mx-auto mt-20"}>
+        <div className="container mx-auto mt-20 px-4 md:px-0">
           <SectionHeader
-              title={"Namangan turizm yangiliklari"}
-              desc={"Namangan viloyati turizm boshqarmasi yangiliklari"}
+              title="Namangan turizm yangiliklari"
+              desc="Namangan viloyati turizm boshqarmasi yangiliklari"
               rightSide={
-                <div className={"text-end"}>
+                <div className="text-end">
                   <i
                       onClick={() => swiperRef.current?.slidePrev()}
                       aria-label="Previous slide"
@@ -47,10 +47,24 @@ export const NewsSection: React.FC = () => {
         </div>
 
         <Swiper
-            className={"px-10 py-10 pb-20"}
+            className="px-4 md:px-10 pt-3 pb-16 md:py-20"
             modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={50}
-            slidesPerView={3}
+            spaceBetween={20}
+            slidesPerView={1}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+            }}
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper;
             }}
@@ -62,17 +76,17 @@ export const NewsSection: React.FC = () => {
                   <div className="absolute bottom-0 p-10 w-full bg-gradient-to-t from-black to-transparent flex flex-col justify-end z-10">
                     <div className="text-white flex items-end">
                       <div>
-                        <h3 className="font-baskervville text-5xl">
+                        <h3 className="font-baskervville text-2xl md:text-5xl line-clamp-2">
                           Namangan viloyati Chortoq tumanida yangi turizm maskani
                         </h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, soluta?</p>
+                        <p className="text-sm md:text-base line-clamp-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, soluta?</p>
                       </div>
                       <i className="fa-light fa-arrow-up-right p-5 rounded-xl text-2xl"></i>
                     </div>
                   </div>
 
                   <Link
-                      href={"/news/10"}
+                      href="/news/10"
                       className="absolute inset-0 flex items-center justify-center bg-green-500 bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
                   >
                     <i className="fa-solid fa-eye text-white text-4xl"></i>
@@ -82,8 +96,8 @@ export const NewsSection: React.FC = () => {
           ))}
         </Swiper>
 
-        <div className={"text-center"}>
-          <Button text={"Barchasini ko`rish"} href={"/news"} />
+        <div className="text-center">
+          <Button text="Barchasini ko`rish" href="/news" />
         </div>
       </div>
   );

@@ -11,7 +11,7 @@ interface ButtonProps {
 export const Button: FC<ButtonProps> = ({ href, text, className = "", ...props }) => {
   const t = useTranslations();
 
-  const baseStyles = "inline-block uppercase font-baskervville text-green-500 border rounded border-green-500 px-10 py-3";
+  const baseStyles = "inline-block uppercase font-baskervville text-green-500 border rounded border-green-500 px-4 py-2 md:px-10 md:py-3";
   const hoverStyles = "transition-all hover:bg-green-500 hover:text-white";
 
   const combinedStyles = `${baseStyles} ${href ? hoverStyles : ""} ${className}`.trim();

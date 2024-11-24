@@ -7,9 +7,9 @@ const images = [33, 44, 56, 70, 99, 100, 990, 78, 596];
 
 export const LocationsSection = () => {
   return (
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto">
         <SectionHeader title={"Mashxur maskanlar"} desc={"Namangan viloyati diqqatga sazovor joylari"}/>
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-y-4 mt-10">
+        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-y-4 mt-0 md:mt-10 lg:mt-10 p-4">
           <FancyBox>
             {images.map((image, index) => (
                 <div data-fancybox="gallery" data-src={`https://picsum.photos/id/${image}/${image + 200}/${image + 430}`}
@@ -26,8 +26,12 @@ export const LocationsSection = () => {
                     <i className="fas fa-eye text-white text-4xl"/>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-5 rounded-b-lg text-white">
-                    <p className="font-semibold font-baskervville text-4xl">Namangan shahri Axsikent
-                      yodgorligi {image}</p>
+                    <span>Tarixiy</span>
+                    <h2 className="font-baskervville text-4xl line-clamp-2">Namangan shahri Axsikent
+                      yodgorligi {image}</h2>
+
+                    <h2 className="font-serif text-xl line-clamp-2">Namangan shahri Axsikent
+                      yodgorligi {image}</h2>
                   </div>
                 </div>
             ))}
@@ -35,7 +39,7 @@ export const LocationsSection = () => {
         </div>
 
         <div className={"text-center my-20"}>
-          <Button text={"Barchasini ko`rish"} href={"/"}/>
+        <Button text={"Barchasini ko`rish"} href={"/"}/>
         </div>
       </div>
   );
