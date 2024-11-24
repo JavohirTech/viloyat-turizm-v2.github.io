@@ -146,7 +146,7 @@ export function Navbar({ isHomePage }: NavbarProps) {
           : "bg-black text-white"
 
   return (
-      <nav className={`fixed top-0 left-0 w-full z-10 transition-colors duration-300 ${navbarBgClass}`}>
+      <nav className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${navbarBgClass}`}>
         <div className="container mx-auto flex justify-between items-center p-4">
           {/* Logo Section */}
           <div className="text-lg font-bold flex items-center space-x-5">

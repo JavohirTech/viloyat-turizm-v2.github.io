@@ -7,7 +7,7 @@ export const Footer = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full lg:w-1/3 px-4 mb-4 lg:mb-0">
-              <div className={"flex items-center space-x-10 space-y-2"}>
+              <div className={"flex flex-col md:flex-row lg:flex-row items-start md:items-center lg:items-center gap-5"}>
                 {["namangan-turizm-logo.gif", "uzbek-travel-logo.png"].map((logo) => (
                     <Image
                         key={logo}

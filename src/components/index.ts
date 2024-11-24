@@ -4,6 +4,7 @@ export {SectionHeader} from './common/sectionHeader/SectionHeader'
 export {PageHeader} from './common/pageHeader/PageHeader'
 export {MultiSwiper} from './common/multiSwiper/MultiSwiper'
 export {Button} from '@/components/common/button/Button'
+export {Pagination} from './common/pagination/Pagination'
 
 export {HeroSection} from '@/components/section/hero/HeroSection'
 export {OurPartnersSection} from '@/components/section/ourPartners/OurPartnersSection'
