@@ -1,13 +1,16 @@
 'use client';
-import React, { useRef } from 'react';
+import React, {FC, useRef} from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import type { Swiper as SwiperType } from 'swiper';
-import { Button, SectionHeader } from "@/components";
-import { Link } from "@/i18n/routing";
+import {A11y, Navigation, Pagination, Scrollbar} from 'swiper/modules';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import type {Swiper as SwiperType} from 'swiper';
+import {Button, SectionHeader} from "@/components";
+import {Link} from "@/i18n/routing";
+import {INewsResponse} from "@/types/news";
+import moment from "moment";
+import {addMediaUrl} from "@/helpers/addMediaUrl";
 import Image from "next/image";
 
 const images = [
@@ -19,8 +22,16 @@ const images = [
   "https://picsum.photos/900?6"
 ];
 
-export const NewsSection: React.FC = () => {
+interface INewsSectionProps {
+  newsData: INewsResponse;
+}
+
+export const NewsSection: FC<INewsSectionProps> = ({newsData}) => {
   const swiperRef = useRef<SwiperType>();
+
+  console.log(newsData)
+
+  console.log(addMediaUrl(newsData.results[0].banner, "banner"))
 
   return (
       <div>
@@ -69,24 +80,24 @@ export const NewsSection: React.FC = () => {
               swiperRef.current = swiper;
             }}
         >
-          {images.map((image, index) => (
+          {newsData.results.map((news, index) => (
               <SwiperSlide key={index}>
-                <div className="rounded-3xl overflow-hidden relative shadow-2xl group">
-                  <Image src={image} width={100} height={100} alt={`Slide ${index + 1}`} className="w-full h-auto" />
+                <div className="rounded-3xl overflow-hidden shadow-2xl group h-[500px] relative">
+                  <Image src={addMediaUrl(news.banner, "banner")} layout={"fill"} objectFit={"cover"} alt={`Slide ${index + 1}`} className="w-full h-auto" />
                   <div className="absolute bottom-0 p-10 w-full bg-gradient-to-t from-black to-transparent flex flex-col justify-end z-10">
                     <div className="text-white flex items-end">
                       <div>
                         <h3 className="font-baskervville text-2xl md:text-5xl line-clamp-2">
-                          Namangan viloyati Chortoq tumanida yangi turizm maskani
+                          {news.title}
                         </h3>
-                        <p className="text-sm md:text-base line-clamp-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, soluta?</p>
+                        <p className="text-sm md:text-base line-clamp-2">{moment(news.created_at).format("LL")}</p>
                       </div>
                       <i className="fa-light fa-arrow-up-right p-5 rounded-xl text-2xl"></i>
                     </div>
                   </div>
 
                   <Link
-                      href="/news/10"
+                      href={`/news/${news.slug}`}
                       className="absolute inset-0 flex items-center justify-center bg-green-500 bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
                   >
                     <i className="fa-solid fa-eye text-white text-4xl"></i>

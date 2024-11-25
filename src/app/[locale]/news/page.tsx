@@ -3,9 +3,15 @@ import { PageHeader, Pagination } from "@/components";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
+import {newsService} from "@/services/newsService";
+import {addMediaUrl} from "@/helpers/addMediaUrl";
+import moment from "moment";
 
-const Page = ({ params: { locale } }: never) => {
+const Page = async ({ params: { locale, page } }: never) => {
   setRequestLocale(locale);
+
+  const newsData = await newsService.getNews({locale});
+
 
   return (
       <div>
@@ -47,31 +53,24 @@ const Page = ({ params: { locale } }: never) => {
 
           <div className="space-y-8">
             {
-              [2, 3, 4, 5, 6].map((item, index) => (
-                  <Link href={`/news/${item}-salom`} key={index}
+              newsData.results.map((news, index) => (
+                  <Link  href={`/news/${news.slug}`} key={index}
                         className="flex flex-col md:flex-row bg-white rounded-3xl overflow-hidden h-auto border  p-2 md:p-5 lg:p-5">
                     <Image
-                        width={100}
-                        height={100}
-                        src="https://picsum.photos/900"
+                        width={300}
+                        height={300}
+                        src={addMediaUrl(news.banner, "banner")}
                         alt="News Image"
                         className="rounded-2xl w-full md:w-1/3"
                     />
                     <div className="p-3 md:p-6 lg:p-6 w-full md:w-2/3">
                       <span className="font-serif block w-fit px-3 mb-3 py-1 rounded text-green-500 bg-green-50">Tadbir</span>
-                      <span className="text-gray-500 font-serif mb-5 block">01.01.2024</span>
+                      <span className="text-gray-500 font-serif mb-5 block">{moment(news.created_at).format("LL")}</span>
                       <h3 className="font-baskervville text-2xl md:text-4xl font-bold mb-2 line-clamp-3">
-                        Namangan viloyati Chortoq tumanida yangi turizm maskani
-                        Namangan viloyati Chortoq tumanida yangi turizm maskani
-                        Namangan viloyati Chortoq tumanida yangi turizm maskani
+                        {news.title}
                       </h3>
-                      <p className="text-gray-600 mb-4 line-clamp-2">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, id, ut. Aliquam aperiam aut
-                        commodi dolore ea est explicabo facere illum iusto nam nemo, provident quaerat, ratione rem
-                        velit vitae.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, id, ut. Aliquam aperiam aut
-                        commodi dolore ea est explicabo facere illum iusto nam nemo, provident quaerat, ratione rem
-                        velit vitae.
+                      <p className="text-gray-600 mb-4 line-clamp-3">
+                        {news.content}
                       </p>
                     </div>
                   </Link>
@@ -79,7 +78,7 @@ const Page = ({ params: { locale } }: never) => {
             }
           </div>
           <div className={"my-10"}>
-            <Pagination currentPage={1} totalPages={1000} />
+            <Pagination currentPage={page || 1} totalPages={newsData.count} />
           </div>
         </div>
       </div>

@@ -1,74 +1,51 @@
 import React from 'react';
 import { PageHeader } from "@/components";
 import { setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import {Link, useRouter} from "@/i18n/routing";
 import FancyBox from "@/helpers/fancyBox";
 import Image from "next/image";
+import {newsService} from "@/services/newsService";
+import moment from "moment";
+import {addMediaUrl} from "@/helpers/addMediaUrl";
 
-const Page = ({ params: { locale } }: never) => {
+
+
+const Page = async ({ params: { locale, slug } }: never) => {
   setRequestLocale(locale);
+
+  const newsData = await newsService.getNewsById({locale, slug});
+
 
   return (
       <div>
-        <PageHeader title={"Namangan yangilik details page"} />
+        <PageHeader title={newsData.title}/>
         <div className="container mx-auto py-8 px-4 flex flex-col md:flex-row">
           <div className="md:w-2/3 pr-0 md:pr-8 lg:pr-8 mb-10 md:mb-0">
-            <span className={"text-gray-500 mb-5 font-serif inline-block"}>01.01.2024</span>
-            <h1 className="font-baskervville text-3xl md:text-5xl font-bold mb-10">
-              Namangan viloyati Chortoq tumanida yangi turizm maskani
-            </h1>
+            <span className={"text-gray-500 mb-5 font-serif inline-block"}>{moment(newsData.created_at).format("LL")}</span>
             <FancyBox>
               <div className={"grid grid-cols-2 gap-5"}>
-                <Image
-                    width={500}
-                    height={300}
-                    data-fancybox="gallery"
-                    src="https://picsum.photos/900"
-                    data-src={"https://picsum.photos/900"}
-                    data-caption={"Namangan shahar"}
-                    alt="News Image"
-                    className="rounded-2xl w-full h-auto"
-                />
-                <Image
-                    width={500}
-                    height={300}
-                    data-fancybox="gallery"
-                    src="https://picsum.photos/900"
-                    data-src={"https://picsum.photos/900"}
-                    data-caption={"Namangan shahar"}
-                    alt="News Image"
-                    className="rounded-2xl w-full h-auto"
-                />
-                <Image
-                    width={500}
-                    height={300}
-                    data-fancybox="gallery"
-                    src="https://picsum.photos/900"
-                    data-src={"https://picsum.photos/900"}
-                    data-caption={"Namangan shahar"}
-                    alt="News Image"
-                    className="rounded-2xl w-full h-auto"
-                />
-                <Image
-                    width={500}
-                    height={300}
-                    data-fancybox="gallery"
-                    src="https://picsum.photos/900"
-                    data-src={"https://picsum.photos/900"}
-                    data-caption={"Namangan shahar"}
-                    alt="News Image"
-                    className="rounded-2xl w-full h-auto"
-                />
+                {
+                  newsData.images.map((image, index) => (
+                      <Image
+                          key={index}
+                          width={500}
+                          height={300}
+                          lazyBoundary={"100px"}
+                          lazyRoot={"#lazy-root"}
+                          data-fancybox="gallery"
+                          src={addMediaUrl(image.image, "news")}
+                          data-src={addMediaUrl(image.image, "news")}
+                          data-caption={newsData.title}
+                          alt={newsData.title}
+                          className="rounded-2xl w-full h-auto"
+                      />
+                  ))
+                }
               </div>
             </FancyBox>
             <div className={"mt-10"}>
               <p className="text-gray-600 mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, id, ut. Aliquam aperiam aut
-                commodi dolore ea est explicabo facere illum iusto nam nemo, provident quaerat, ratione rem velit vitae.
-              </p>
-              <p className="text-gray-600 mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, id, ut. Aliquam aperiam aut commodi
-                dolore ea est explicabo facere illum iusto nam nemo, provident quaerat, ratione rem velit vitae.
+                {newsData.content}
               </p>
             </div>
           </div>
