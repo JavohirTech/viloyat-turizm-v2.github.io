@@ -16,7 +16,7 @@ export const PageHeader: FC<PageHeaderProps> = ({ title, desc, children }) => {
       <div className="relative container mx-auto pb-10 px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl text-white font-bold font-baskervville line-clamp-2">{t(title)}</h1>
         <Breadcrumbs />
-        <p className="text-sm sm:text-base lg:text-lg text-white">{t(desc)}</p>
+        <p className="text-sm sm:text-base lg:text-lg text-white">{desc}</p>
         <div>
           {children}
         </div>

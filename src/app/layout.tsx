@@ -2,6 +2,7 @@ import React from 'react';
 import {AbstractIntlMessages, NextIntlClientProvider} from "next-intl";
 import NavbarFooterLayout from "@/app/[locale]/NavbarFooterLayout";
 import "./globals.css";
+import moment from "moment";
 
 const RootLayout = ({
                       children,
@@ -12,6 +13,7 @@ const RootLayout = ({
   locale?: string;
   messages?:AbstractIntlMessages;
 }>) => {
+  moment.locale(locale)
   return (
       <html lang={locale} suppressHydrationWarning={true}>
       <head>

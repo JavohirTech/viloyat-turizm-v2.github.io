@@ -2,7 +2,7 @@ import React, {FC} from 'react'
 import {HeroSection, LocationsSection, NewsSection, OurPartnersSection} from "@/components";
 import {setRequestLocale} from "next-intl/server";
 import {AboutSection} from "@/components/section/about/AboutSection";
-import {newsService} from "@/services/newsService";
+import {newsSvc} from "@/services/newsSvc";
 import {Locale} from "@/types/locale";
 
 type PageProps = {
@@ -13,7 +13,7 @@ const Page:FC<PageProps> = async ({params}) => {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const newsData = await newsService.getNews({locale});
+  const newsData = await newsSvc.getNews({locale});
 
   return (
       <div>

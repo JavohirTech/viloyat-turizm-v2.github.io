@@ -1,17 +1,17 @@
-import React from 'react'
-import { PageHeader, Pagination } from "@/components";
-import { setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/routing";
-import Image from "next/image";
-import {newsService} from "@/services/newsService";
-import {addMediaUrl} from "@/helpers/addMediaUrl";
-import moment from "moment";
+import React from "react";
+import {PageHeader, Pagination} from "@/components";
+import {setRequestLocale} from "next-intl/server";
+import {newsSvc} from "@/services/newsSvc";
+import {Locale} from "@/types/locale";
+import {NewsSection} from "@/app/[locale]/news/sections/NewsSection";
 
-const Page = async ({ params: { locale, page } }: never) => {
+const Page = async ({ params: { locale, page } }: { params: { locale: Locale; page: string } }) => {
   setRequestLocale(locale);
 
-  const newsData = await newsService.getNews({locale});
+  const currentPage = parseInt(page) || 1;
+  const newsData = await newsSvc.getNews({ locale, page: 1 });
 
+  console.log("currentPage", currentPage);
 
   return (
       <div>
@@ -28,14 +28,12 @@ const Page = async ({ params: { locale, page } }: never) => {
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 lg:space-y-0 my-10">
           <span>
-            7
-            ta natija / ko`rsatilmoqda
-            1 - 7
+            {newsData.results.length} ta natija / ko`rsatilmoqda {1 + (currentPage - 1) * 10} -{" "}
+            {Math.min(newsData.count, currentPage * 10)}
           </span>
 
             <div className="flex items-center space-x-3">
               <label>Saralash:</label>
-
               <div className="relative">
                 <select className="block appearance-none w-full bg-white border border-green-500 text-gray-700 py-2 px-4 pr-8 rounded-lg shadow-sm focus:outline-none">
                   <option>Barchasi</option>
@@ -47,42 +45,17 @@ const Page = async ({ params: { locale, page } }: never) => {
                   <i className="fas fa-chevron-down text-green-500"></i>
                 </div>
               </div>
-
             </div>
           </div>
 
-          <div className="space-y-8">
-            {
-              newsData.results.map((news, index) => (
-                  <Link  href={`/news/${news.slug}`} key={index}
-                        className="flex flex-col md:flex-row bg-white rounded-3xl overflow-hidden h-auto border  p-2 md:p-5 lg:p-5">
-                    <Image
-                        width={300}
-                        height={300}
-                        src={addMediaUrl(news.banner, "banner")}
-                        alt="News Image"
-                        className="rounded-2xl w-full md:w-1/3"
-                    />
-                    <div className="p-3 md:p-6 lg:p-6 w-full md:w-2/3">
-                      <span className="font-serif block w-fit px-3 mb-3 py-1 rounded text-green-500 bg-green-50">Tadbir</span>
-                      <span className="text-gray-500 font-serif mb-5 block">{moment(news.created_at).format("LL")}</span>
-                      <h3 className="font-baskervville text-2xl md:text-4xl font-bold mb-2 line-clamp-3">
-                        {news.title}
-                      </h3>
-                      <p className="text-gray-600 mb-4 line-clamp-3">
-                        {news.content}
-                      </p>
-                    </div>
-                  </Link>
-              ))
-            }
-          </div>
+         <NewsSection currentPage={currentPage} locale={locale}/>
+
           <div className={"my-10"}>
-            <Pagination currentPage={page || 1} totalPages={newsData.count} />
+            <Pagination currentPage={currentPage} totalPages={Math.ceil(newsData.count)} />
           </div>
         </div>
       </div>
-  )
-}
+  );
+};
 
 export default Page;

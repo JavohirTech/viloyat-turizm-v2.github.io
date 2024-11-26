@@ -1,6 +1,7 @@
 "use client"
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from "next/image";
 
 const Loading = () => {
   return (
@@ -9,8 +10,9 @@ const Loading = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
-          className="h-screen w-full flex justify-center items-center bg-green-500"
+          className="h-screen w-full flex flex-col gap-4 justify-center items-center bg-green-500"
       >
+        <Image className={"filter invert brightness-0"} src={"/images/namangan-turizm-logo.gif"} width={100} height={100} alt={"Namangan turizm logo"}/>
         <motion.div
             animate={{
               scale: [1, 1.2, 1],
@@ -21,7 +23,7 @@ const Loading = () => {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="w-16 h-16 bg-white rounded-full"
+            className="w-10 h-10 bg-white rounded-full"
         />
       </motion.div>
   );

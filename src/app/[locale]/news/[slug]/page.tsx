@@ -1,31 +1,32 @@
 import React from 'react';
 import { PageHeader } from "@/components";
-import { setRequestLocale } from "next-intl/server";
+import {getTranslations, setRequestLocale} from "next-intl/server";
 import {Link, useRouter} from "@/i18n/routing";
 import FancyBox from "@/helpers/fancyBox";
 import Image from "next/image";
-import {newsService} from "@/services/newsService";
+import {newsSvc} from "@/services/newsSvc";
 import moment from "moment";
 import {addMediaUrl} from "@/helpers/addMediaUrl";
 
 
-
 const Page = async ({ params: { locale, slug } }: never) => {
   setRequestLocale(locale);
+  const t = await getTranslations({locale});
+  const newsByIdData = await newsSvc.getNewsById({locale, slug});
 
-  const newsData = await newsService.getNewsById({locale, slug});
+  const newsData = await newsSvc.getNews({locale});
 
 
   return (
       <div>
-        <PageHeader title={newsData.title}/>
+        <PageHeader title={newsByIdData.title}/>
         <div className="container mx-auto py-8 px-4 flex flex-col md:flex-row">
           <div className="md:w-2/3 pr-0 md:pr-8 lg:pr-8 mb-10 md:mb-0">
-            <span className={"text-gray-500 mb-5 font-serif inline-block"}>{moment(newsData.created_at).format("LL")}</span>
+            <span className={"text-gray-500 mb-5 font-serif inline-block"}>{moment(newsByIdData.created_at).format("LL")}</span>
             <FancyBox>
               <div className={"grid grid-cols-2 gap-5"}>
                 {
-                  newsData.images.map((image, index) => (
+                  newsByIdData.images.map((image, index) => (
                       <Image
                           key={index}
                           width={500}
@@ -35,8 +36,8 @@ const Page = async ({ params: { locale, slug } }: never) => {
                           data-fancybox="gallery"
                           src={addMediaUrl(image.image, "news")}
                           data-src={addMediaUrl(image.image, "news")}
-                          data-caption={newsData.title}
-                          alt={newsData.title}
+                          data-caption={newsByIdData.title}
+                          alt={newsByIdData.title}
                           className="rounded-2xl w-full h-auto"
                       />
                   ))
@@ -45,15 +46,15 @@ const Page = async ({ params: { locale, slug } }: never) => {
             </FancyBox>
             <div className={"mt-10"}>
               <p className="text-gray-600 mb-4">
-                {newsData.content}
+                {newsByIdData.content}
               </p>
             </div>
           </div>
 
           <div className="md:w-1/3">
-            <h2 className="font-baskervville text-2xl md:text-3xl font-bold mb-4">Oxirgi yangiliklar</h2>
+            <h2 className="font-baskervville text-2xl md:text-3xl font-bold mb-4">{t("Oxirgi yangiliklar")}</h2>
             <div className="space-y-4">
-              {[2, 3, 4, 5, 6].map((item, index) => (
+              {newsData.results.map((item, index) => (
                   <Link href={`/news/${item}`} key={index} className="flex bg-white h-[150px]">
                     <Image
                         width={200}

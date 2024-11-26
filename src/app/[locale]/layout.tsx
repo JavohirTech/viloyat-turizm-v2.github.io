@@ -1,8 +1,9 @@
-import { getMessages, getTranslations } from 'next-intl/server';
+import {getMessages} from 'next-intl/server';
 import React from 'react';
-import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
+import {notFound} from "next/navigation";
+import {routing} from "@/i18n/routing";
 import RootLayout from '../layout';
+import {Locale} from "@/types/locale";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
   const messages = await getMessages();
 
-  if (!routing.locales.includes(locale as "uz" | "ru" | "en")) {
+  if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
 
