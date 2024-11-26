@@ -4,8 +4,8 @@ import { Locale } from "@/types/locale";
 import {INewsItem, INewsResponse} from "@/types/news";
 
 interface INewsService {
-  getNews: ({ locale, page }: { locale: Locale , page:number}) => Promise<INewsResponse>;
-  getNewsById: ({ locale, slug }: { locale: Locale, slug: number }) => Promise<INewsItem>;
+  getNews: ({ locale, page }: { locale: Locale , page:number | string}) => Promise<INewsResponse>;
+  getNewsById: ({ locale, slug }: { locale: Locale, slug: string }) => Promise<INewsItem>;
 }
 
 export const newsSvc:INewsService = {
@@ -13,11 +13,12 @@ export const newsSvc:INewsService = {
     try {
       const {data} = await api.get<INewsResponse>(NEWS, {
         params:{
-          page_size: 2,
+          page_size: 1,
           page:page,
         },
         headers: {
           "Accept-Language": locale,
+          "Content-Language": locale,
         },
       });
       return data;
@@ -27,7 +28,7 @@ export const newsSvc:INewsService = {
     }
   },
 
-  getNewsById: async ({locale, slug}: { locale: Locale, slug: number }) => {
+  getNewsById: async ({locale, slug}) => {
     try {
       const {data} = await api.get<INewsItem>(`${NEWS}${slug}/`, {
         headers: {

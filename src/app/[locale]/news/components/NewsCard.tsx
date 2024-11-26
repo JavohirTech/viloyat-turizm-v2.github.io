@@ -12,16 +12,18 @@ export const NewsCard = ({news}: {news: INewsItem}) => {
           key={news.id}
           className="flex flex-col md:flex-row bg-white rounded-3xl overflow-hidden h-auto border  p-2 md:p-5 lg:p-5"
       >
-        <Image
-            width={300}
-            height={300}
-            src={addMediaUrl(news.banner, "banner")}
-            alt="News Image"
-            className="rounded-2xl w-full md:w-1/3"
-        />
+        <div className="relative w-full md:w-1/3 h-[400px]">
+          <Image
+              objectFit={"cover"}
+              layout={"fill"}
+              className={"rounded-2xl"}
+              src={addMediaUrl(news.banner, "banner")}
+              alt="News Image"
+          />
+        </div>
         <div className="p-3 md:p-6 lg:p-6 w-full md:w-2/3">
-                <span className="font-serif block w-fit px-3 mb-3 py-1 rounded text-green-500 bg-green-50">
-                  Tadbir
+                <span className="font-serif block w-fit px-3 mb-3 py-1 rounded text-green-500 bg-green-50 capitalize">
+                  {news.category.name}
                 </span>
           <span className="text-gray-500 font-serif mb-5 block">
                   {moment(news.created_at).format("LL")}

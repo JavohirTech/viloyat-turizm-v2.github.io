@@ -1,8 +1,10 @@
+"use client"
 import React from 'react';
 import {AbstractIntlMessages, NextIntlClientProvider} from "next-intl";
 import NavbarFooterLayout from "@/app/[locale]/NavbarFooterLayout";
 import "./globals.css";
 import moment from "moment";
+import {QueryClient, QueryClientProvider} from "react-query";
 
 const RootLayout = ({
                       children,
@@ -14,6 +16,8 @@ const RootLayout = ({
   messages?:AbstractIntlMessages;
 }>) => {
   moment.locale(locale)
+
+  const queryClient = new QueryClient();
   return (
       <html lang={locale} suppressHydrationWarning={true}>
       <head>
@@ -25,9 +29,11 @@ const RootLayout = ({
       <body>
       {locale && messages ? (
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <NavbarFooterLayout>
-              {children}
-            </NavbarFooterLayout>
+            <QueryClientProvider client={queryClient}>
+              <NavbarFooterLayout>
+                {children}
+              </NavbarFooterLayout>
+            </QueryClientProvider>
           </NextIntlClientProvider>
       ) : (
           children

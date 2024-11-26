@@ -1,21 +1,30 @@
-import React from "react";
+"use client"
+import React, {useEffect} from "react";
 import {PageHeader, Pagination} from "@/components";
-import {setRequestLocale} from "next-intl/server";
 import {newsSvc} from "@/services/newsSvc";
 import {Locale} from "@/types/locale";
 import {NewsSection} from "@/app/[locale]/news/sections/NewsSection";
+import {useQuery} from "react-query";
+import {useParams, useSearchParams} from "next/navigation";
+import {usePathname} from "@/i18n/routing";
 
-const Page = async ({ params: { locale, page } }: { params: { locale: Locale; page: string } }) => {
-  setRequestLocale(locale);
+const Page = () => {
+  const pathname = useParams();
+  const locale: Locale = pathname.locale as Locale;
+  const searchParams = useSearchParams()
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const {data: newsData, refetch: newsRefetch} = useQuery(['news', locale, currentPage], () => newsSvc.getNews({
+    locale,
+    page: currentPage
+  }))
 
-  const currentPage = parseInt(page) || 1;
-  const newsData = await newsSvc.getNews({ locale, page: 1 });
-
-  console.log("currentPage", currentPage);
+  useEffect(() => {
+    newsRefetch()
+  }, [currentPage, newsRefetch, locale])
 
   return (
       <div>
-        <PageHeader title={"Yangiliklar"} />
+        <PageHeader title={"Yangiliklar"}/>
         <div className="container mx-auto py-8 px-4">
           <div className="border border-green-500 w-full my-5 rounded-xl flex items-center">
             <i className="fas fa-search text-2xl p-5 text-green-500"></i>
@@ -26,16 +35,17 @@ const Page = async ({ params: { locale, page } }: { params: { locale: Locale; pa
             />
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 lg:space-y-0 my-10">
+          <div
+              className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 lg:space-y-0 my-10">
           <span>
-            {newsData.results.length} ta natija / ko`rsatilmoqda {1 + (currentPage - 1) * 10} -{" "}
-            {Math.min(newsData.count, currentPage * 10)}
+            {newsData && newsData.results.length} ta natija / ko`rsatilmoqda {1 + (currentPage - 1)} - {newsData?.count}
           </span>
 
             <div className="flex items-center space-x-3">
               <label>Saralash:</label>
               <div className="relative">
-                <select className="block appearance-none w-full bg-white border border-green-500 text-gray-700 py-2 px-4 pr-8 rounded-lg shadow-sm focus:outline-none">
+                <select
+                    className="block appearance-none w-full bg-white border border-green-500 text-gray-700 py-2 px-4 pr-8 rounded-lg shadow-sm focus:outline-none">
                   <option>Barchasi</option>
                   <option>Yangiliklar</option>
                   <option>E`lonlar</option>
@@ -48,10 +58,10 @@ const Page = async ({ params: { locale, page } }: { params: { locale: Locale; pa
             </div>
           </div>
 
-         <NewsSection currentPage={currentPage} locale={locale}/>
+          <NewsSection currentPage={currentPage} locale={locale}/>
 
           <div className={"my-10"}>
-            <Pagination currentPage={currentPage} totalPages={Math.ceil(newsData.count)} />
+            <Pagination currentPage={currentPage} totalPages={2}/>
           </div>
         </div>
       </div>

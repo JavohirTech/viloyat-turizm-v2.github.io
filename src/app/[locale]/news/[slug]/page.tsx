@@ -1,5 +1,5 @@
-import React from 'react';
-import { PageHeader } from "@/components";
+import React, {FC} from 'react';
+import {PageHeader} from "@/components";
 import {getTranslations, setRequestLocale} from "next-intl/server";
 import {Link, useRouter} from "@/i18n/routing";
 import FancyBox from "@/helpers/fancyBox";
@@ -7,22 +7,38 @@ import Image from "next/image";
 import {newsSvc} from "@/services/newsSvc";
 import moment from "moment";
 import {addMediaUrl} from "@/helpers/addMediaUrl";
+import {Locale} from "@/types/locale";
+import {NewsCardMini} from "@/app/[locale]/news/[slug]/components/NewsCardMini";
+
+interface IPageProps {
+  params: {
+    locale: Locale;
+    slug: string;
+  };
+}
 
 
-const Page = async ({ params: { locale, slug } }: never) => {
+const Page: FC<IPageProps> = async ({params: {locale, slug}}) => {
   setRequestLocale(locale);
   const t = await getTranslations({locale});
   const newsByIdData = await newsSvc.getNewsById({locale, slug});
 
-  const newsData = await newsSvc.getNews({locale});
+  const newsData = await newsSvc.getNews({locale, page: 1});
 
 
   return (
       <div>
         <PageHeader title={newsByIdData.title}/>
         <div className="container mx-auto py-8 px-4 flex flex-col md:flex-row">
-          <div className="md:w-2/3 pr-0 md:pr-8 lg:pr-8 mb-10 md:mb-0">
-            <span className={"text-gray-500 mb-5 font-serif inline-block"}>{moment(newsByIdData.created_at).format("LL")}</span>
+          <div className="md:w-2/3 pr-0 md:pr-8 lg:pr-20 mb-10 md:mb-0">
+
+            <div className={"flex justify-between items-center"}>
+               <span
+                   className={"text-gray-500 mb-5 font-serif my-3"}>{moment(newsByIdData.created_at).format("LL")}</span>
+              <span className="font-serif block w-fit px-3 mb-3 py-1 rounded text-green-500 bg-green-50 capitalize">
+                  {newsByIdData.category.name}
+                </span>
+            </div>
             <FancyBox>
               <div className={"grid grid-cols-2 gap-5"}>
                 {
@@ -45,7 +61,7 @@ const Page = async ({ params: { locale, slug } }: never) => {
               </div>
             </FancyBox>
             <div className={"mt-10"}>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 mb-4 leading-8">
                 {newsByIdData.content}
               </p>
             </div>
@@ -54,24 +70,8 @@ const Page = async ({ params: { locale, slug } }: never) => {
           <div className="md:w-1/3">
             <h2 className="font-baskervville text-2xl md:text-3xl font-bold mb-4">{t("Oxirgi yangiliklar")}</h2>
             <div className="space-y-4">
-              {newsData.results.map((item, index) => (
-                  <Link href={`/news/${item}`} key={index} className="flex bg-white h-[150px]">
-                    <Image
-                        width={200}
-                        height={200}
-                        src="https://picsum.photos/500"
-                        alt="News Image"
-                        className="rounded-2xl h-auto"
-                    />
-                    <div className="p-4">
-                      <h3 className="font-baskervville text-lg md:text-xl font-bold mb-2 line-clamp-2">
-                        Namangan viloyati Chortoq tumanida yangi turizm maskani
-                      </h3>
-                      <p className="font-serif text-sm md:text-base mb-2 text-gray-500 line-clamp-2">
-                        Namangan viloyati Chortoq tumanida yangi turizm maskani
-                      </p>
-                    </div>
-                  </Link>
+              {newsData.results.map((news, index) => (
+                  <NewsCardMini news={news} key={index}/>
               ))}
             </div>
           </div>
