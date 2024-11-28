@@ -4,6 +4,8 @@ import {setRequestLocale} from "next-intl/server";
 import {AboutSection} from "@/components/section/about/AboutSection";
 import {newsSvc} from "@/services/newsSvc";
 import {Locale} from "@/types/locale";
+import {partnersSvc} from "@/services/partnersSvc";
+import {aboutSvc} from "@/services/aboutSvc";
 
 type PageProps = {
   params: Promise<{ locale: Locale }>;
@@ -14,13 +16,15 @@ const Page:FC<PageProps> = async ({params}) => {
   setRequestLocale(locale);
 
   const newsData = await newsSvc.getNews({locale, params:{}});
+  const partnersData = await partnersSvc.getPartners({locale});
+  const aboutData = await aboutSvc.getAbout({locale});
 
   return (
       <div>
         <HeroSection newsData={newsData}/>
-        <OurPartnersSection/>
+        <OurPartnersSection partnersData={partnersData}/>
         <NewsSection newsData={newsData}/>
-        <AboutSection/>
+        <AboutSection aboutData={aboutData}/>
         <LocationsSection/>
       </div>
   )

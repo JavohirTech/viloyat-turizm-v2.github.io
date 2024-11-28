@@ -92,12 +92,8 @@ export function Navbar({ isHomePage }: NavbarProps) {
   const menuRef = useRef<HTMLDivElement>(null)
 
   const router = useRouter()
-  const pathname = usePathname()
-  const params = useParams()
   const searchParams = useSearchParams()
   const t = useTranslations()
-
-  const query = Object.fromEntries(searchParams.entries())
 
   const handleLanguageSelect = (language: Language) => {
     setSelectedLanguage(language)

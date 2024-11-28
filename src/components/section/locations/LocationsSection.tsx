@@ -8,7 +8,7 @@ const images = [33, 44, 56, 70, 99, 100, 990, 78, 596];
 export const LocationsSection = () => {
   return (
       <div className="container mx-auto">
-        <SectionHeader title={"Mashxur maskanlar"} desc={"Namangan viloyati diqqatga sazovor joylari"}/>
+        <SectionHeader title={"Turizm turlari"} desc={"Namangan viloyati diqqatga sazovor joylari"}/>
         <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-y-4 mt-0 md:mt-10 lg:mt-10 p-4">
           <FancyBox>
             {images.map((image, index) => (

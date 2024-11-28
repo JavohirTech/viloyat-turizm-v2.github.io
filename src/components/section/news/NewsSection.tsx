@@ -13,15 +13,6 @@ import moment from "moment";
 import {addMediaUrl} from "@/helpers/addMediaUrl";
 import Image from "next/image";
 
-const images = [
-  "https://picsum.photos/900?1",
-  "https://picsum.photos/900?2",
-  "https://picsum.photos/900?3",
-  "https://picsum.photos/900?4",
-  "https://picsum.photos/900?5",
-  "https://picsum.photos/900?6"
-];
-
 interface INewsSectionProps {
   newsData: INewsResponse;
 }
