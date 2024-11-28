@@ -17,8 +17,8 @@ export const NewsCard = ({news}: {news: INewsItem}) => {
               objectFit={"cover"}
               layout={"fill"}
               className={"rounded-2xl"}
-              src={addMediaUrl(news.banner, "banner")}
-              alt="News Image"
+              src={news.banner ? addMediaUrl(news.banner, "banner") : "https://picsum.photos/200/300"}
+              alt={news.title}
           />
         </div>
         <div className="p-3 md:p-6 lg:p-6 w-full md:w-2/3">
@@ -28,7 +28,7 @@ export const NewsCard = ({news}: {news: INewsItem}) => {
           <span className="text-gray-500 font-serif mb-5 block">
                   {moment(news.created_at).format("LL")}
                 </span>
-          <h3 className="font-baskervville text-2xl md:text-4xl font-bold mb-2 line-clamp-3">
+          <h3 className="font-baskervville text-2xl md:text-4xl font-light mb-2 line-clamp-3">
             {news.title}
           </h3>
           <p className="text-gray-600 mb-4 line-clamp-3">{news.content}</p>

@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
 import {PageHeader} from "@/components";
 import {getTranslations, setRequestLocale} from "next-intl/server";
-import {Link, useRouter} from "@/i18n/routing";
 import FancyBox from "@/helpers/fancyBox";
 import Image from "next/image";
 import {newsSvc} from "@/services/newsSvc";
@@ -23,12 +22,14 @@ const Page: FC<IPageProps> = async ({params: {locale, slug}}) => {
   const t = await getTranslations({locale});
   const newsByIdData = await newsSvc.getNewsById({locale, slug});
 
-  const newsData = await newsSvc.getNews({locale, page: 1});
+  console.log(newsByIdData, "newsByIdData");
+
+  const newsData = await newsSvc.getNews({locale, params: {page: 1}});
 
 
   return (
       <div>
-        <PageHeader title={newsByIdData.title}/>
+        <PageHeader backgroundImage={addMediaUrl(newsByIdData?.banner, "banner")} title={newsByIdData.title}/>
         <div className="container mx-auto py-8 px-4 flex flex-col md:flex-row">
           <div className="md:w-2/3 pr-0 md:pr-8 lg:pr-20 mb-10 md:mb-0">
 
@@ -40,7 +41,7 @@ const Page: FC<IPageProps> = async ({params: {locale, slug}}) => {
                 </span>
             </div>
             <FancyBox>
-              <div className={"grid grid-cols-2 gap-5"}>
+              <div className={`grid ${newsByIdData.images.length === 1 ? "grid-cols-1" : "grid-cols-2"} gap-5`}>
                 {
                   newsByIdData.images.map((image, index) => (
                       <Image
@@ -61,15 +62,15 @@ const Page: FC<IPageProps> = async ({params: {locale, slug}}) => {
               </div>
             </FancyBox>
             <div className={"mt-10"}>
-              <p className="text-gray-600 mb-4 leading-8">
+              <p className="text-gray-600 mb-4 leading-10 text-xl text-justify font-serif">
                 {newsByIdData.content}
               </p>
             </div>
           </div>
 
           <div className="md:w-1/3">
-            <h2 className="font-baskervville text-2xl md:text-3xl font-bold mb-4">{t("Oxirgi yangiliklar")}</h2>
-            <div className="space-y-4">
+            <h2 className="font-baskervville font-light text-2xl md:text-3xl mb-4">{t("Oxirgi yangiliklar")}</h2>
+            <div className="space-y-2">
               {newsData.results.map((news, index) => (
                   <NewsCardMini news={news} key={index}/>
               ))}

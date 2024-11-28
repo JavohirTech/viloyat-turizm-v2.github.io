@@ -105,10 +105,11 @@ export function Navbar({ isHomePage }: NavbarProps) {
     setIsMenuOpen(false)
 
     startTransition(() => {
-      router.replace(
-          { pathname, ...params, query },
-          { locale: language }
-      )
+      // router.replace(
+      //     { pathname, ...params, query },
+      //     { locale: language }
+      // )
+    router.replace("/", { locale: language })
     })
   }
 

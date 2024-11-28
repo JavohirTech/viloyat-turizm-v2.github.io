@@ -24,3 +24,10 @@ export interface INewsItem {
 export interface INewsResponse extends IPagination{
   results: INewsItem[];
 }
+
+
+//news categories
+export interface INewsCategoryResponse {
+  id: number;
+  name: string;
+}
