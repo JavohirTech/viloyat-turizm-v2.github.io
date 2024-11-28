@@ -10,11 +10,9 @@ import {navLinks} from "@/components/common/navbar/navLinks";
 import {Link} from "@/i18n/routing";
 import {useTranslations} from "next-intl";
 
-interface FooterProps {
-  params: Promise<{ locale: string }>;
-}
 
-export const Footer:FC<FooterProps> = () => {
+
+export const Footer = () => {
   const pathname = useParams();
   const locale: Locale = pathname.locale as Locale;
   const t= useTranslations();

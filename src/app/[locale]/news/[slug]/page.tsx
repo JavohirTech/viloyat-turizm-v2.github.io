@@ -10,14 +10,12 @@ import {Locale} from "@/types/locale";
 import {NewsCardMini} from "@/app/[locale]/news/[slug]/components/NewsCardMini";
 
 interface IPageProps {
-  params: {
-    locale: Locale;
-    slug: string;
-  };
+  params: Promise<{ locale: Locale, slug: string }>
 }
 
 
-const Page: FC<IPageProps> = async ({params: {locale, slug}}) => {
+const Page: FC<IPageProps> = async ({params}) => {
+  const {locale, slug} = await params;
   setRequestLocale(locale);
   const t = await getTranslations({locale});
   const newsByIdData = await newsSvc.getNewsById({locale, slug});

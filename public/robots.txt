@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://namangan-turizm.uz
+
+# Sitemaps
+Sitemap: https://namangan-turizm.uz/sitemap.xml

@@ -11,13 +11,11 @@ import {addMediaUrl} from "@/helpers/addMediaUrl";
 
 
 interface IFestivalProps {
-  params: {
-    locale: Locale;
-    slug: string;
-  };
+  params: Promise<{ locale: Locale, slug: string }>
 }
 
-const Page: FC<IFestivalProps> = async ({params: {locale, slug}}) => {
+const Page: FC<IFestivalProps> = async ({params}) => {
+  const {locale, slug} = await params;
   setRequestLocale(locale);
   const t = await getTranslations({locale});
 

@@ -9,14 +9,12 @@ import {addMediaUrl} from "@/helpers/addMediaUrl";
 import {PhotoGalleryCard} from "@/app/[locale]/photo-gallery/[slug]/components/PhotoGalleryCard";
 
 interface PhotoGalleryIdProps {
-  params: {
-    locale: Locale;
-    slug: string;
-  };
+  params: Promise<{ locale: Locale, slug: string }>
 }
 
 
-const Page:FC<PhotoGalleryIdProps> = async ({params: {locale, slug}}) => {
+const Page:FC<PhotoGalleryIdProps> = async ({params}) => {
+  const {locale, slug} = await params;
 
   setRequestLocale(locale);
   const t = await getTranslations({locale});
