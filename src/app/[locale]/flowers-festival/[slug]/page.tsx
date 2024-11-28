@@ -48,7 +48,7 @@ const Page: FC<IFestivalProps> = async ({params: {locale, slug}}) => {
                           data-src={addMediaUrl(image.image, "festival")}
                           data-caption={festivalByIdData.name}
                           alt={festivalByIdData.name}
-                          className="rounded-2xl w-full h-auto"
+                          className="rounded-2xl w-full h-auto min-h-96 object-cover"
                       />
                   ))
                 }

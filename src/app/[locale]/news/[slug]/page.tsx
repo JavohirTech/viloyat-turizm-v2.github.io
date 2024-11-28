@@ -52,7 +52,7 @@ const Page: FC<IPageProps> = async ({params: {locale, slug}}) => {
                           data-src={addMediaUrl(image.image, "news")}
                           data-caption={newsByIdData.title}
                           alt={newsByIdData.title}
-                          className="rounded-2xl w-full h-auto"
+                          className="rounded-2xl w-full h-auto min-h-96 object-cover"
                       />
                   ))
                 }

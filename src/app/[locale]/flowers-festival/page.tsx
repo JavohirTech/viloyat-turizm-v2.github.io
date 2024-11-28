@@ -3,7 +3,7 @@ import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import Image from 'next/image';
 import {AnimatePresence, motion} from 'framer-motion';
 import {Empty} from '@/components';
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery, useQuery} from "react-query";
 import {flowersFestivalSvc} from "@/services/flowersFestivalSvc";
 import {useParams, useSearchParams} from "next/navigation";
 import {Locale} from "@/types/locale";
@@ -11,6 +11,8 @@ import {useTranslations} from "next-intl";
 import {FestivalCard} from "@/app/[locale]/flowers-festival/components/FestivalCard";
 import {Loader} from "@/components/common/loader/Loader";
 import {useRouter} from "@/i18n/routing";
+import {addMediaUrl} from "@/helpers/addMediaUrl";
+import Head from "next/head";
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
@@ -23,8 +25,6 @@ const Page = () => {
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const currentSearch = searchParams.get("search") || "";
   const [searchText, setSearchText] = useState<string>(currentSearch);
-
-
   const router = useRouter();
 
   const {data: festivalData, isLoading, isFetching, isError, fetchNextPage, hasNextPage} = useInfiniteQuery(
@@ -42,11 +42,13 @@ const Page = () => {
       }
   );
 
+  const {data: festivalPoster} = useQuery("getFestivalPoster", () => flowersFestivalSvc.getFestivalPoster({locale}));
+  const festivalPosterData = festivalPoster?.[0];
+
   const modalVariants = {
     hidden: {opacity: 0},
     visible: {opacity: 1},
   };
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -89,10 +91,28 @@ const Page = () => {
   };
 
   return (
-      <div>
+      <>
+        <Head>
+          <link
+              rel="preload"
+              as="video"
+              href={addMediaUrl(festivalPosterData?.video || "", "festivals-poster-video")}
+              type="video/mp4"
+          />
+        </Head>
         <div className="relative w-full h-screen">
-          <video className="absolute top-0 left-0 w-full h-full object-cover" autoPlay loop muted>
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"/>
+          <video
+              className="absolute top-0 left-0 w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+          >
+            <source
+                src={addMediaUrl(festivalPosterData?.video || "", "festivals-poster-video")}
+                type="video/mp4"
+            />
           </video>
 
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
@@ -105,7 +125,8 @@ const Page = () => {
                   animate={{opacity: 1, scale: 1}}
                   transition={{duration: 1}}
               >
-                <Image width={200} height={200} src="/images/flowers-festival-logo.gif" alt="Logo"
+                <Image width={200} height={200}
+                       src={addMediaUrl(festivalPosterData?.logo || "", "festival-poster-logo")} alt="Logo"
                        className="mb-4 h-auto w-[100px] md:full lg:w-full xl:max-w-xl"/>
               </motion.div>
 
@@ -113,19 +134,18 @@ const Page = () => {
                   initial={{opacity: 0, y: 50}}
                   animate={{opacity: 1, y: 0}}
                   transition={{duration: 1, delay: 0.5}}
-                  className="text-3xl sm:text-4xl font-bold mb-3"
+                  className="text-3xl sm:text-4xl font-light mb-3 line-clamp-2"
               >
-                Namanganda 63-xalqaro gullar festivali
+                {festivalPosterData?.title}
               </motion.h1>
 
               <motion.p
                   initial={{opacity: 0, y: 50}}
                   animate={{opacity: 1, y: 0}}
                   transition={{duration: 1, delay: 0.7}}
-                  className="text-base sm:text-lg md:text-xl"
+                  className="text-base sm:text-lg md:text-xl line-clamp-3"
               >
-                Dunyoning turli burchaklaridan kelgan gullar va san`at ustalari Namangan shahrida o`z san`ati va
-                yaratgan gullari bilan jahonni hayratda qoldirishga tayyor.
+                {festivalPosterData?.description}
               </motion.p>
             </div>
           </div>
@@ -209,7 +229,7 @@ const Page = () => {
             {isFetching && <Loader height={"h-96"}/>}
           </div>
         </div>
-      </div>
+      </>
   );
 };
 

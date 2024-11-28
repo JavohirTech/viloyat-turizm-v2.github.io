@@ -20,3 +20,13 @@ export interface IFlowersFestivalItem {
 export interface IFlowersFestivalResponse extends IPagination{
   results: IFlowersFestivalItem[];
 }
+
+
+export interface IFestivalPosterResponse{
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  logo: string;
+  video: string;
+}

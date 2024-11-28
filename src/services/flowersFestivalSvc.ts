@@ -1,6 +1,6 @@
 import {api} from "@/lib/api";
-import {FESTIVAL, FESTIVALS} from "@/lib/apiEndpoints";
-import {IFlowersFestivalItem, IFlowersFestivalResponse} from "@/types/flowersFestival";
+import {FESTIVAL, FESTIVAL_POSTER_LIST, FESTIVALS} from "@/lib/apiEndpoints";
+import {IFestivalPosterResponse, IFlowersFestivalItem, IFlowersFestivalResponse} from "@/types/flowersFestival";
 
 interface IFlowersFestivalService {
   getFlowerFestivals: (args: {
@@ -10,6 +10,7 @@ interface IFlowersFestivalService {
     };
   }) => Promise<IFlowersFestivalResponse>;
   getFlowerFestivalById: ({locale, slug}: { locale: string; slug: string }) => Promise<IFlowersFestivalItem>;
+  getFestivalPoster: ({locale}: { locale: string }) => Promise<IFestivalPosterResponse[]>;
 }
 
 export const flowersFestivalSvc:IFlowersFestivalService = {
@@ -43,6 +44,21 @@ export const flowersFestivalSvc:IFlowersFestivalService = {
     catch (e) {
       console.error(e);
       throw new Error("Failed to fetch flower festival");
+    }
+  },
+
+  getFestivalPoster: async ({locale})=>{
+    try{
+      const {data} = await api.get<IFestivalPosterResponse[]>(FESTIVAL_POSTER_LIST, {
+        headers: {
+          "Accept-Language": locale,
+          "Content-Language": locale,
+        },
+      })
+      return data;
+    }catch (e) {
+      console.error(e);
+      throw new Error("Failed to fetch flower festival poster");
     }
   }
 }

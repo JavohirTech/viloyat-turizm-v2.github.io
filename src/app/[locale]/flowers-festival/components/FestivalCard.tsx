@@ -38,9 +38,6 @@ export const FestivalCard: FC<FestivalCardProps> = ({festival, index, todayFesti
   const isToday = festivalStartDate.toDateString() === today.toDateString();
   const isPast = festivalEndDate < today;
 
-
-  console.log("isToday", isToday, new Date(festival.start_date).getDate(), today.getDate());
-
   return (
       <Link href={`/flowers-festival/${festival.slug}`} key={festival.id} className="relative">
         <div className="absolute left-0 h-full w-[5px]">

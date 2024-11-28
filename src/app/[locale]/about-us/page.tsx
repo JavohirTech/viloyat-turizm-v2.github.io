@@ -13,7 +13,6 @@ const Page:FC<PageProps> = async ({params}) => {
   const { locale } = await params;
   const aboutData = await aboutSvc.getAbout({locale});
   const contactData = await contactSvc.getContact({locale});
-
   const contact = contactData[0]
 
   return (
