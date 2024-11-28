@@ -17,7 +17,7 @@ export const NewsCard = ({news}: {news: INewsItem}) => {
               objectFit={"cover"}
               layout={"fill"}
               className={"rounded-2xl"}
-              src={news.banner ? addMediaUrl(news.banner, "banner") : "https://picsum.photos/200/300"}
+              src={news.banner ? addMediaUrl(news.banner, "news-banner") : "https://picsum.photos/200/300"}
               alt={news.title}
           />
         </div>

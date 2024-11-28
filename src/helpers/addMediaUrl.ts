@@ -1,8 +1,10 @@
-type MediaUrl = "news" | "banner";
+type MediaUrl = "news" | "news-banner"| "festival" | "festival-banner";
 
 const urls = {
   "news": "/news/image",
-  "banner": "/news/banner",
+  "news-banner": "/news/banner",
+  "festival": "/festival/image",
+  "festival-banner": "/festival/banner",
 };
 
 export const addMediaUrl = (url: string, type: MediaUrl): string => {

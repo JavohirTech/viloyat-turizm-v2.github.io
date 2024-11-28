@@ -55,7 +55,7 @@ const Page = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("search", searchValue);
     params.delete("page");
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, {scroll: false});
   };
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -65,9 +65,6 @@ const Page = () => {
     params.delete("page");
     router.push(`?${params.toString()}`);
   };
-
-  console.log(newsData, "newsData");
-
   return (
     <>
       <Head>

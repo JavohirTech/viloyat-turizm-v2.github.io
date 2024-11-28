@@ -1,2 +1,5 @@
 export const NEWS = "/news/"
 export const NEWS_CATEGORIES = "/news-categories/"
+export const FESTIVALS = "/festivals/"
+export const FESTIVAL = "/festival/"
+export const SOCIAL_MEDIA = "/social-media/"

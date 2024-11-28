@@ -21,15 +21,12 @@ const Page: FC<IPageProps> = async ({params: {locale, slug}}) => {
   setRequestLocale(locale);
   const t = await getTranslations({locale});
   const newsByIdData = await newsSvc.getNewsById({locale, slug});
-
-  console.log(newsByIdData, "newsByIdData");
-
   const newsData = await newsSvc.getNews({locale, params: {page: 1}});
 
 
   return (
       <div>
-        <PageHeader backgroundImage={addMediaUrl(newsByIdData?.banner, "banner")} title={newsByIdData.title}/>
+        <PageHeader backgroundImage={addMediaUrl(newsByIdData?.banner, "news-banner")} title={newsByIdData.title}/>
         <div className="container mx-auto py-8 px-4 flex flex-col md:flex-row">
           <div className="md:w-2/3 pr-0 md:pr-8 lg:pr-20 mb-10 md:mb-0">
 

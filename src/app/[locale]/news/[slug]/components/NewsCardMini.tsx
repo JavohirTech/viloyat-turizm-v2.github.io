@@ -19,7 +19,7 @@ export const NewsCardMini: FC<INewsCardMiniProps> = ({ news }) => {
           <Image
               src={
                 news.banner
-                    ? addMediaUrl(news.banner, "banner")
+                    ? addMediaUrl(news.banner, "news-banner")
                     : "/images/placeholder.png"
               }
               alt={news.title}

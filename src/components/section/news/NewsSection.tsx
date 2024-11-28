@@ -31,7 +31,7 @@ export const NewsSection: FC<INewsSectionProps> = ({newsData}) => {
 
   console.log(newsData)
 
-  console.log(addMediaUrl(newsData.results[0].banner, "banner"))
+  console.log(addMediaUrl(newsData.results[0].banner, "news-banner"))
 
   return (
       <div>
@@ -83,7 +83,7 @@ export const NewsSection: FC<INewsSectionProps> = ({newsData}) => {
           {newsData.results.map((news, index) => (
               <SwiperSlide key={index}>
                 <div className="rounded-3xl overflow-hidden shadow-2xl group h-[500px] relative">
-                  <Image src={addMediaUrl(news.banner, "banner")} layout={"fill"} objectFit={"cover"} alt={`Slide ${index + 1}`} className="w-full h-auto" />
+                  <Image src={addMediaUrl(news.banner, "news-banner")} layout={"fill"} objectFit={"cover"} alt={`Slide ${index + 1}`} className="w-full h-auto" />
                   <div className="absolute bottom-0 p-10 w-full bg-gradient-to-t from-black to-transparent flex flex-col justify-end z-10">
                     <div className="text-white flex items-end">
                       <div>

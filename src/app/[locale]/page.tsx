@@ -13,11 +13,11 @@ const Page:FC<PageProps> = async ({params}) => {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const newsData = await newsSvc.getNews({locale});
+  const newsData = await newsSvc.getNews({locale, params:{}});
 
   return (
       <div>
-        <HeroSection/>
+        <HeroSection newsData={newsData}/>
         <OurPartnersSection/>
         <NewsSection newsData={newsData}/>
         <AboutSection/>

@@ -80,3 +80,9 @@
 .btn-glass {
     @apply bg-white bg-opacity-10 backdrop-blur-sm text-white p-4 hover:bg-opacity-30 transition-all;
 }
+
+iframe{
+    width: 100%!important;
+    height: 100%!important;
+    border: none!important;
+}
