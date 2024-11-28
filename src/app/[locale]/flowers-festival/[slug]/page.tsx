@@ -8,6 +8,7 @@ import {Locale} from "@/types/locale";
 import {flowersFestivalSvc} from "@/services/flowersFestivalSvc";
 import moment from "moment/moment";
 import {addMediaUrl} from "@/helpers/addMediaUrl";
+import {DOMAIN_URL} from "@/lib/api";
 
 
 interface IFestivalProps {
@@ -20,7 +21,7 @@ const Page: FC<IFestivalProps> = async ({params}) => {
   const t = await getTranslations({locale});
 
   const festivalByIdData = await flowersFestivalSvc.getFlowerFestivalById({locale, slug});
-  const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/flowers-festival/${festivalByIdData.slug}`;
+  const fullUrl = `${DOMAIN_URL}/${locale}/flowers-festival/${festivalByIdData.slug}`;
 
   console.log(fullUrl);
 

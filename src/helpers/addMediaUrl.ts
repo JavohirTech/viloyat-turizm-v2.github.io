@@ -1,3 +1,5 @@
+import {BASE_URL} from "@/lib/api";
+
 type MediaUrl = "news" | "news-banner"| "festival" | "festival-banner" | "partners" | "about-us" | "festival-poster-logo" | "festivals-poster-video" | "photo-gallery-image"
 
 const urls = {
@@ -13,7 +15,7 @@ const urls = {
 };
 
 export const addMediaUrl = (url: string, type: MediaUrl): string => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const baseUrl = BASE_URL;
   const mediaUrl = urls[type];
 
   return `${baseUrl}${mediaUrl}/${url}/`;

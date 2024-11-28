@@ -13,6 +13,7 @@ import {Loader} from "@/components/common/loader/Loader";
 import {useRouter} from "@/i18n/routing";
 import {addMediaUrl} from "@/helpers/addMediaUrl";
 import Head from "next/head";
+import {BASE_URL} from "@/lib/api";
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
@@ -36,7 +37,7 @@ const Page = () => {
       {
         getNextPageParam: (lastPage) => {
           if (!lastPage.next) return false;
-          const url = new URL(lastPage.next, process.env.NEXT_PUBLIC_API_BASE_URL);
+          const url = new URL(lastPage.next, BASE_URL);
           return url.searchParams.get("page") || false;
         },
       }
