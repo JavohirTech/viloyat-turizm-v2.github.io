@@ -12,14 +12,17 @@ interface ILocationsSectionProps {
 }
 
 export const LocationsSection: FC<ILocationsSectionProps> = ({ photoGalleryData }) => {
-
   const cardVariants = {
     hidden: { opacity: 0, y: 100 },
-    visible: {
+    visible: (index: number) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+        delay: index * 0.2 // Add staggered delay based on index
+      },
+    }),
   };
 
   return (
@@ -31,13 +34,18 @@ export const LocationsSection: FC<ILocationsSectionProps> = ({ photoGalleryData 
             {photoGalleryData.results.map((item, index) => (
                 <motion.div
                     key={index}
+                    custom={index} // Pass index as custom prop for dynamic delay
                     className="mb-4 relative group overflow-hidden rounded-3xl"
                     initial="hidden"
                     whileInView="visible"
                     variants={cardVariants}
                     viewport={{ once: true, amount: 0.3 }}
                 >
-                  <div data-fancybox="gallery" data-src={`${addMediaUrl(item.banner || "", "photo-gallery-banner")}`} data-caption={item.title}>
+                  <div
+                      data-fancybox="gallery"
+                      data-src={`${addMediaUrl(item.banner || "", "photo-gallery-banner")}`}
+                      data-caption={item.title}
+                  >
                     <Image
                         width={100}
                         height={300}

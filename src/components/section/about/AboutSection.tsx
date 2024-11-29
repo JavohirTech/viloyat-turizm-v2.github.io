@@ -16,7 +16,6 @@ export const AboutSection: FC<IAboutSectionProps> = ({ aboutData }) => {
   const pathname = usePathname();
   const isAboutUsPage = pathname === "/about-us";
 
-  // Animation Variants
   const imageVariants = {
     hidden: { opacity: 0, x: -50 },
     visible: { opacity: 1, x: 0, transition: { duration: 1 } },
@@ -30,7 +29,6 @@ export const AboutSection: FC<IAboutSectionProps> = ({ aboutData }) => {
   return (
       <div className="container mx-auto my-20 px-5">
         <div className="grid grid-cols-1 md:grid-cols-2 md:space-x-10 items-center gap-10">
-          {/* Image Section */}
           <motion.div
               className="h-full"
               initial="hidden"
@@ -47,12 +45,12 @@ export const AboutSection: FC<IAboutSectionProps> = ({ aboutData }) => {
             />
           </motion.div>
 
-          {/* Text Section */}
           <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.5 }}
               variants={textVariants}
+              className={"py-20"}
           >
             <p className="font-serif text-md md:text-xl">{data.title}</p>
             <h1 className="font-baskervville text-3xl md:text-5xl text-green-500 mt-2">

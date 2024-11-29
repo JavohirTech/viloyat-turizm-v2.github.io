@@ -1,7 +1,7 @@
 "use client"
 import React, {ChangeEvent, useEffect, useMemo, useRef, useState} from 'react';
 import Image from 'next/image';
-import {AnimatePresence, motion} from 'framer-motion';
+import {motion} from 'framer-motion';
 import {Empty} from '@/components';
 import {useInfiniteQuery, useQuery} from "react-query";
 import {flowersFestivalSvc} from "@/services/flowersFestivalSvc";
@@ -18,7 +18,6 @@ import {BASE_URL} from "@/lib/api";
 const Page = () => {
   const pathname = useParams();
   const searchParams = useSearchParams();
-  const [showModal, setShowModal] = useState(false);
   const locale: Locale = pathname.locale as Locale;
   const t = useTranslations();
   const todayFestivalRef = useRef<HTMLDivElement | null>(null);
@@ -46,17 +45,7 @@ const Page = () => {
   const {data: festivalPoster} = useQuery("getFestivalPoster", () => flowersFestivalSvc.getFestivalPoster({locale}));
   const festivalPosterData = festivalPoster?.[0];
 
-  const modalVariants = {
-    hidden: {opacity: 0},
-    visible: {opacity: 1},
-  };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowModal(true);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  console.log(festivalPosterData?.video);
 
   useEffect(() => {
     const options = {
@@ -91,15 +80,21 @@ const Page = () => {
     router.push(`?${params.toString()}`, {scroll: false});
   };
 
+  console.log(
+      `${BASE_URL}/festival-poster/video/${festivalPosterData?.video}`
+  )
+
   return (
       <>
         <Head>
-          <link
-              rel="preload"
-              as="video"
-              href={addMediaUrl(festivalPosterData?.video || "", "festivals-poster-video")}
-              type="video/mp4"
-          />
+          {festivalPosterData?.video && (
+              <link
+                  rel="preload"
+                  as="video"
+                  href={addMediaUrl(festivalPosterData?.video, "festivals-poster-video")}
+                  type="video/mp4"
+              />
+          )}
         </Head>
         <div className="relative w-full h-screen">
           <video
@@ -110,11 +105,16 @@ const Page = () => {
               playsInline
               preload="metadata"
           >
-            <source
-                src={addMediaUrl(festivalPosterData?.video || "", "festivals-poster-video")}
-                type="video/mp4"
-            />
+            {festivalPosterData?.video ? (
+                <source
+                    src={addMediaUrl(festivalPosterData?.video, "festivals-poster-video")}
+                    type="video/mp4"
+                />
+            ) : (
+                <p>Video is not available</p>
+            )}
           </video>
+
 
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
 
@@ -207,32 +207,6 @@ const Page = () => {
               )}
             </div>
           </div>
-
-          <AnimatePresence>
-            {showModal && (
-                <motion.div
-                    className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                    variants={modalVariants}
-                    transition={{duration: 0.5}}
-                >
-                  <motion.div className="bg-white rounded-lg shadow-lg p-6 w-4/5 sm:w-1/2 md:w-1/3"
-                              variants={modalVariants}>
-                    <h2 className="text-xl font-bold mb-4">Xalqaro gullar festivali 12-kun</h2>
-                    <p>
-                      Namanganda 63-xalqaro gullar festivali 12-kun davomida o`tkaziladi. Barcha qiziqarli va
-                      qiziqarli tadbirlarga taklif etiladi.
-                    </p>
-                    <button onClick={() => setShowModal(false)}
-                            className="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg">
-                      Yopish
-                    </button>
-                  </motion.div>
-                </motion.div>
-            )}
-          </AnimatePresence>
 
           <div ref={loaderRef} className="my-10">
             {isFetching && <Loader height={"h-96"}/>}

@@ -78,7 +78,7 @@
 
 
 .btn-glass {
-    @apply bg-white bg-opacity-10 backdrop-blur-sm text-white p-4 hover:bg-opacity-30 transition-all;
+    @apply bg-white bg-opacity-10 backdrop-blur-sm text-white p-4 hover:bg-opacity-30 transition-all aspect-square flex items-center justify-center;
 }
 
 iframe{

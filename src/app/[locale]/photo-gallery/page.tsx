@@ -2,7 +2,7 @@
 
 import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion"; // Import Framer Motion
+import { motion } from "framer-motion";
 import { PageHeader } from "@/components";
 import { Link, useRouter } from "@/i18n/routing";
 import { useParams, useSearchParams } from "next/navigation";
@@ -104,6 +104,33 @@ const Page = () => {
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
+  // Define variants for staggered animation
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: {
+      y: 50,
+      opacity: 0
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
       <div>
         <PageHeader title={"Turizm turlari"} />
@@ -152,28 +179,22 @@ const Page = () => {
             </div>
           </div>
 
-          {/* Gallery Items with Animation */}
           {photoGalleryData?.pages.length === 0 || photoGalleryData?.pages[0].results.length === 0 ? (
               <Empty height={"h-96"} />
           ) : (
               <motion.div
                   className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-y-4 mt-0 md:mt-10 lg:mt-10"
+                  variants={containerVariants}
                   initial="hidden"
                   animate="visible"
-                  variants={{
-                    hidden: { opacity: 0 },
-                    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-                  }}
               >
                 {photoGalleryData?.pages.map((page) =>
                     page.results.map((item, index) => (
                         <motion.div
                             key={index}
-                            initial={{y: 50, opacity: 0}}
-                            animate={{y: 0, opacity: 1}}
-                            transition={{duration: 0.5, ease: "easeOut"}}
-                            whileHover={{scale: 1.05}}
-                            whileTap={{scale: 0.95}}
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
                           <Link href={`/photo-gallery/${item.slug}`}>
                             <div
@@ -182,16 +203,19 @@ const Page = () => {
                                 data-caption={item.title}
                                 className="mb-4 relative group overflow-hidden rounded-3xl"
                             >
-                              <motion.img
-                                  width={100}
-                                  height={200}
-                                  src={addMediaUrl(item.banner, "photo-gallery-banner")}
-                                  alt={item.title}
-                                  className="w-full object-cover h-[500px] rounded-lg shadow-md"
+                              <motion.div
                                   initial={{scale: 0.9, opacity: 0}}
                                   animate={{scale: 1, opacity: 1}}
                                   transition={{duration: 0.5, delay: 0.2}}
-                              />
+                              >
+                                <Image
+                                    width={600}
+                                    height={500}
+                                    src={addMediaUrl(item.banner, "photo-gallery-banner")}
+                                    alt={item.title}
+                                    className="w-full object-cover h-[500px] rounded-lg shadow-md"
+                                />
+                              </motion.div>
                               <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"/>
                               <div className="absolute bottom-0 left-0 right-0 p-5 rounded-b-lg text-white">
                                 <span>{item.category.name}</span>
