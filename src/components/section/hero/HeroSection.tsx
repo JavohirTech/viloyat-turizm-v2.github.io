@@ -1,12 +1,12 @@
 "use client";
-import {FC, useCallback, useEffect, useState} from "react";
-import {AnimatePresence, motion} from "framer-motion";
+import { FC, useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import {socialMediaSvc} from "@/services/socialMediaSvc";
-import {useQuery} from "react-query";
-import {INewsResponse} from "@/types/news";
-import {addMediaUrl} from "@/helpers/addMediaUrl";
-import {useTranslations} from "next-intl";
+import { socialMediaSvc } from "@/services/socialMediaSvc";
+import { useQuery } from "react-query";
+import { INewsResponse } from "@/types/news";
+import { addMediaUrl } from "@/helpers/addMediaUrl";
+import { useTranslations } from "next-intl";
 
 interface IHeroSectionProps {
   newsData: INewsResponse;
@@ -37,20 +37,21 @@ export const HeroSection: FC<IHeroSectionProps> = ({ newsData }) => {
   return (
       <div className="relative z-0 min-h-screen overflow-hidden">
         <AnimatePresence>
-          {newsData.results.map((item, index) => (
-              <motion.div
-                  key={index}
-                  className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
-                  style={{
-                    backgroundImage: `url(${addMediaUrl(item.banner, "news-banner")})`,
-                    display: index === currentIndex ? "block" : "none",
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 1 }}
-              />
-          ))}
+          {newsData.results.map((item, index) =>
+              index === currentIndex ? (
+                  <motion.div
+                      key={item.id}
+                      className="absolute inset-0 bg-cover bg-center"
+                      style={{
+                        backgroundImage: `url(${addMediaUrl(item.banner, "news-banner")})`,
+                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1 }}
+                  />
+              ) : null
+          )}
         </AnimatePresence>
 
         <div className="absolute inset-0 bg-black bg-opacity-50 pointer-events-none"></div>
@@ -58,40 +59,45 @@ export const HeroSection: FC<IHeroSectionProps> = ({ newsData }) => {
         <div className="relative z-10 mx-auto container flex flex-col items-start justify-center text-white px-8 py-4 min-h-screen">
           <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full items-center gap-8">
             <div>
-              <motion.h1
-                  className="font-baskervville text-3xl sm:text-4xl md:text-6xl font-light line-clamp-2"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
-                  transition={{ duration: 1 }}
-              >
-                {newsData.results[currentIndex]?.title}
-              </motion.h1>
-
-              <motion.p
-                  className="mt-4 text-lg sm:text-xl md:text-2xl line-clamp-2"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
-                  transition={{ duration: 1, delay: 0.5 }}
-              >
-                {newsData.results[currentIndex]?.content}
-              </motion.p>
-
-              <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
-                  transition={{ duration: 1, delay: 1 }}
-                  className="mt-6 w-fit"
-              >
-                <Link
-                    href={`/news/${newsData.results[currentIndex]?.slug}`}
-                    className="px-6 py-3 bg-white hover:opacity-80 transition-all text-black rounded-full flex items-center space-x-3"
+              <AnimatePresence mode="wait">
+                <motion.h1
+                    key={newsData.results[currentIndex]?.id + "-title"}
+                    className="font-baskervville text-3xl sm:text-4xl md:text-6xl font-light line-clamp-2"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 1 }}
                 >
-                  <span>{t("Batafsil o`qish")}</span> <i className="fa-sharp fa-regular fa-arrow-right"></i>
-                </Link>
-              </motion.div>
+                  {newsData.results[currentIndex]?.title}
+                </motion.h1>
+
+                <motion.p
+                    key={newsData.results[currentIndex]?.id + "-content"}
+                    className="mt-4 text-lg sm:text-xl md:text-2xl line-clamp-2"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 1, delay: 0.2 }}
+                >
+                  {newsData.results[currentIndex]?.content}
+                </motion.p>
+
+                <motion.div
+                    key={newsData.results[currentIndex]?.id + "-button"}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 1, delay: 0.4 }}
+                    className="mt-6 w-fit"
+                >
+                  <Link
+                      href={`/news/${newsData.results[currentIndex]?.slug}`}
+                      className="px-6 py-3 bg-white hover:opacity-80 transition-all text-black rounded-full flex items-center space-x-3"
+                  >
+                    <span>{t("Batafsil o`qish")}</span> <i className="fa-sharp fa-regular fa-arrow-right"></i>
+                  </Link>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             <div className="text-end">

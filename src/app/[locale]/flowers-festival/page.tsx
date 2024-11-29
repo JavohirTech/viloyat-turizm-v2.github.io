@@ -1,5 +1,5 @@
 "use client"
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useMemo, useRef, useState} from 'react';
 import Image from 'next/image';
 import {AnimatePresence, motion} from 'framer-motion';
 import {Empty} from '@/components';
@@ -16,15 +16,15 @@ import Head from "next/head";
 import {BASE_URL} from "@/lib/api";
 
 const Page = () => {
-  const [showModal, setShowModal] = useState(false);
   const pathname = useParams();
+  const searchParams = useSearchParams();
+  const [showModal, setShowModal] = useState(false);
   const locale: Locale = pathname.locale as Locale;
   const t = useTranslations();
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
   const todayFestivalRef = useRef<HTMLDivElement | null>(null);
   const loaderRef = useRef<HTMLDivElement | null>(null);
-  const currentSearch = searchParams.get("search") || "";
+  const currentPage = useMemo(() => Number(searchParams.get("page") || 1), [searchParams]);
+  const currentSearch = useMemo(() => searchParams.get("search") || "", [searchParams]);
   const [searchText, setSearchText] = useState<string>(currentSearch);
   const router = useRouter();
 
@@ -127,6 +127,8 @@ const Page = () => {
                   transition={{duration: 1}}
               >
                 <Image width={200} height={200}
+                       priority
+                       fetchPriority={"high"}
                        src={addMediaUrl(festivalPosterData?.logo || "", "festival-poster-logo")} alt="Logo"
                        className="mb-4 h-auto w-[100px] md:full lg:w-full xl:max-w-xl"/>
               </motion.div>
@@ -135,7 +137,7 @@ const Page = () => {
                   initial={{opacity: 0, y: 50}}
                   animate={{opacity: 1, y: 0}}
                   transition={{duration: 1, delay: 0.5}}
-                  className="text-3xl sm:text-4xl font-light mb-3 line-clamp-2"
+                  className="text-3xl sm:text-4xl font-baskervville font-light mb-3 line-clamp-2"
               >
                 {festivalPosterData?.title}
               </motion.h1>
@@ -154,16 +156,22 @@ const Page = () => {
 
         <div className="container mx-auto py-8 px-4">
           <div className="container mx-auto py-8">
-            <div className="border border-green-500 w-full my-5 rounded-xl flex items-center">
+            <motion.div
+                className="border border-green-500 w-full my-5 rounded-xl flex items-center"
+                initial={{opacity: 0, y: -20}}
+                animate={{opacity: 1, y: 0}}
+                transition={{duration: 0.5}}
+            >
               <i className="fas fa-search text-2xl p-5 text-green-500"></i>
               <input
                   type="search"
+                  aria-label={t("Qidiruv")}
                   placeholder={`${t("Qidiruv")}...`}
+                  className="w-full focus:outline-none font-baskervville focus:border-0 pe-5 bg-transparent"
                   value={searchText}
                   onChange={handleSearch}
-                  className="w-full focus:outline-0 font-baskervville focus:border-0 pe-5 bg-transparent"
               />
-            </div>
+            </motion.div>
 
             <div
                 className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 lg:space-y-0 my-10">

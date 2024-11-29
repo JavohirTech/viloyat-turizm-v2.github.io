@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import {AbstractIntlMessages, NextIntlClientProvider} from "next-intl";
+import {AbstractIntlMessages, NextIntlClientProvider, useTranslations} from "next-intl";
 import NavbarFooterLayout from "@/app/[locale]/NavbarFooterLayout";
 import "./globals.css";
 import moment from "moment";
@@ -17,6 +17,7 @@ const RootLayout = ({
 }>) => {
   moment.locale(locale)
 
+
   const queryClient = new QueryClient();
   return (
       <html lang={locale} suppressHydrationWarning={true}>
@@ -25,6 +26,7 @@ const RootLayout = ({
             rel="stylesheet"
             href="https://kit-pro.fontawesome.com/releases/v6.6.0/css/pro.min.css"
         />
+        <title>Namangan viloyat turizm boshqarmasi</title>
       </head>
       <body>
       {locale && messages ? (

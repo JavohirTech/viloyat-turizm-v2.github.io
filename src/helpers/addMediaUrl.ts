@@ -1,6 +1,6 @@
 import {BASE_URL} from "@/lib/api";
 
-type MediaUrl = "news" | "news-banner"| "festival" | "festival-banner" | "partners" | "about-us" | "festival-poster-logo" | "festivals-poster-video" | "photo-gallery-image"
+type MediaUrl = "news" | "news-banner"| "festival" | "festival-banner" | "partners" | "about-us" | "festival-poster-logo" | "festivals-poster-video" | "photo-gallery-image" | "photo-gallery-banner";
 
 const urls = {
   "news": "/news/image",
@@ -11,7 +11,8 @@ const urls = {
   "about-us": "/about-us/image",
   "festival-poster-logo": "/festival-poster/logo",
   "festivals-poster-video": "/festival-poster/video",
-  "photo-gallery-image": "/photo-gallery/image"
+  "photo-gallery-image": "/photo-gallery/image",
+  "photo-gallery-banner": "/photo-gallery/banner"
 };
 
 export const addMediaUrl = (url: string, type: MediaUrl): string => {

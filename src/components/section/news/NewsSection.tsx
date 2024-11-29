@@ -1,28 +1,30 @@
 'use client';
-import React, {FC, useRef} from 'react';
+import React, { FC, useRef } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import {A11y, Navigation, Pagination, Scrollbar} from 'swiper/modules';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import type {Swiper as SwiperType} from 'swiper';
-import {Button, SectionHeader} from "@/components";
-import {Link} from "@/i18n/routing";
-import {INewsResponse} from "@/types/news";
-import moment from "moment";
-import {addMediaUrl} from "@/helpers/addMediaUrl";
-import Image from "next/image";
+import { A11y, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
+import { Button, SectionHeader } from '@/components';
+import { Link } from '@/i18n/routing';
+import { INewsResponse } from '@/types/news';
+import moment from 'moment';
+import { addMediaUrl } from '@/helpers/addMediaUrl';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 interface INewsSectionProps {
   newsData: INewsResponse;
 }
 
-export const NewsSection: FC<INewsSectionProps> = ({newsData}) => {
+export const NewsSection: FC<INewsSectionProps> = ({ newsData }) => {
   const swiperRef = useRef<SwiperType>();
 
-  console.log(newsData)
-
-  console.log(addMediaUrl(newsData.results[0].banner, "news-banner"))
+  const slideVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+  };
 
   return (
       <div>
@@ -73,27 +75,43 @@ export const NewsSection: FC<INewsSectionProps> = ({newsData}) => {
         >
           {newsData.results.map((news, index) => (
               <SwiperSlide key={index}>
-                <div className="rounded-3xl overflow-hidden shadow-2xl group h-[500px] relative">
-                  <Image src={addMediaUrl(news.banner, "news-banner")} layout={"fill"} objectFit={"cover"} alt={`Slide ${index + 1}`} className="w-full h-auto" />
+                <motion.div
+                    className="rounded-3xl overflow-hidden shadow-2xl group h-[500px] relative"
+                    variants={slideVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                >
+                  <Image
+                      src={addMediaUrl(news.banner, 'news-banner')}
+                      layout="fill"
+                      objectFit="cover"
+                      alt={`Slide ${index + 1}`}
+                      className="w-full h-auto"
+                  />
                   <div className="absolute bottom-0 p-10 w-full bg-gradient-to-t from-black to-transparent flex flex-col justify-end z-10">
                     <div className="text-white flex items-end">
                       <div>
                         <h3 className="font-baskervville text-2xl md:text-5xl line-clamp-2">
                           {news.title}
                         </h3>
-                        <p className="text-sm md:text-base line-clamp-2">{moment(news.created_at).format("LL")}</p>
+                        <p className="text-sm md:text-base line-clamp-2">
+                          {moment(news.created_at).format('LL')}
+                        </p>
                       </div>
                       <i className="fa-light fa-arrow-up-right p-5 rounded-xl text-2xl"></i>
                     </div>
                   </div>
 
-                  <Link
-                      href={`/news/${news.slug}`}
+                  <motion.div
+                      whileHover={{ opacity: 1 }}
                       className="absolute inset-0 flex items-center justify-center bg-green-500 bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
                   >
-                    <i className="fa-solid fa-eye text-white text-4xl"></i>
-                  </Link>
-                </div>
+                    <Link href={`/news/${news.slug}`}>
+                      <i className="fa-solid fa-eye text-white text-4xl"></i>
+                    </Link>
+                  </motion.div>
+                </motion.div>
               </SwiperSlide>
           ))}
         </Swiper>

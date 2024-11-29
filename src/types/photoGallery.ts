@@ -14,6 +14,7 @@ export interface IPhotoGalleryItem {
   address: string;
   location_i_frame: string;
   video_i_frame: string;
+  banner: string;
   images: IImage[];
 }
 
