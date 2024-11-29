@@ -20,7 +20,7 @@ export const LocationsSection: FC<ILocationsSectionProps> = ({ photoGalleryData 
       transition: {
         duration: 0.5,
         ease: "easeOut",
-        delay: index * 0.2 // Add staggered delay based on index
+        delay: index * 0.2
       },
     }),
   };
@@ -34,8 +34,8 @@ export const LocationsSection: FC<ILocationsSectionProps> = ({ photoGalleryData 
             {photoGalleryData.results.map((item, index) => (
                 <motion.div
                     key={index}
-                    custom={index} // Pass index as custom prop for dynamic delay
-                    className="mb-4 relative group overflow-hidden rounded-3xl"
+                    custom={index}
+                    className="mb-4 cursor-pointer relative group overflow-hidden rounded-3xl"
                     initial="hidden"
                     whileInView="visible"
                     variants={cardVariants}
@@ -68,7 +68,7 @@ export const LocationsSection: FC<ILocationsSectionProps> = ({ photoGalleryData 
           </FancyBox>
         </div>
 
-        <div className={"text-center my-20"}>
+        <div className={"text-center mb-20 my-0 md:my-20 lg:my-20"}>
           <Button text={"Barchasini ko`rish"} href={"/photo-gallery"} />
         </div>
       </div>

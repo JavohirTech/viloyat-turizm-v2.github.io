@@ -76,7 +76,7 @@ export const NewsSection: FC<INewsSectionProps> = ({ newsData }) => {
           {newsData.results.map((news, index) => (
               <SwiperSlide key={index}>
                 <motion.div
-                    className="rounded-3xl overflow-hidden shadow-2xl group h-[500px] relative"
+                    className="rounded-3xl cursor-pointer overflow-hidden shadow-2xl group h-[500px] relative"
                     variants={slideVariants}
                     initial="hidden"
                     whileInView="visible"

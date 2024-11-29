@@ -27,7 +27,7 @@ export const AboutSection: FC<IAboutSectionProps> = ({ aboutData }) => {
   };
 
   return (
-      <div className="container mx-auto my-20 px-5">
+      <div className="container mx-auto my-20 px-5 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 md:space-x-10 items-center gap-10">
           <motion.div
               className="h-full"
@@ -41,7 +41,7 @@ export const AboutSection: FC<IAboutSectionProps> = ({ aboutData }) => {
                 width={900}
                 height={800}
                 src={addMediaUrl(data.image, "about-us")}
-                className="shadow-2xl rounded-3xl w-full object-cover min-h-full"
+                className="shadow-2xl rounded-3xl w-full object-cover min-h-[300px] md:min-h-full lg:min-h-full"
             />
           </motion.div>
 
@@ -50,7 +50,7 @@ export const AboutSection: FC<IAboutSectionProps> = ({ aboutData }) => {
               whileInView="visible"
               viewport={{ once: true, amount: 0.5 }}
               variants={textVariants}
-              className={"py-20"}
+              className={"py-0 md:py-20 lg:py-20"}
           >
             <p className="font-serif text-md md:text-xl">{data.title}</p>
             <h1 className="font-baskervville text-3xl md:text-5xl text-green-500 mt-2">

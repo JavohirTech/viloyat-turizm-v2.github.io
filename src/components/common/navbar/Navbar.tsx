@@ -116,23 +116,25 @@ export function Navbar({ isHomePage }: NavbarProps) {
           !dropdownRef.current.contains(event.target as Node) &&
           !menuRef.current?.contains(event.target as Node)
       ) {
-        setIsDropdownOpen(false)
-        setIsMenuOpen(false)
+        setIsDropdownOpen(false);
+        setIsMenuOpen(false);
       }
-    }
+    };
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
-    }
+      setIsScrolled(window.scrollY > 0);
+      setIsDropdownOpen(false);
+      setIsMenuOpen(false);
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
-    window.addEventListener("scroll", handleScroll)
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
 
 

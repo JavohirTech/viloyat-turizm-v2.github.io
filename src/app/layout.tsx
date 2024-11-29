@@ -5,6 +5,7 @@ import NavbarFooterLayout from "@/app/[locale]/NavbarFooterLayout";
 import "./globals.css";
 import moment from "moment";
 import {QueryClient, QueryClientProvider} from "react-query";
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 
 const RootLayout = ({
                       children,
@@ -32,6 +33,7 @@ const RootLayout = ({
       {locale && messages ? (
           <NextIntlClientProvider locale={locale} messages={messages}>
             <QueryClientProvider client={queryClient}>
+              <ProgressBar height={"4px"} color={"#4CAF50"} options={{showSpinner: false}} shallowRouting />
               <NavbarFooterLayout>
                 {children}
               </NavbarFooterLayout>
