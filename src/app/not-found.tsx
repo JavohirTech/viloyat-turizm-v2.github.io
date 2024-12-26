@@ -19,7 +19,7 @@ const NotFound = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
         >
-         Bugun uyga qaytamiz o`g`lim
+         Sahifa topilmadi, Iltimos qayta urinib ko`ring
         </motion.p>
         <motion.a
             href="/"
@@ -28,7 +28,7 @@ const NotFound = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Uyga qaytish
+          Orga qaytish
         </motion.a>
       </div>
   );
