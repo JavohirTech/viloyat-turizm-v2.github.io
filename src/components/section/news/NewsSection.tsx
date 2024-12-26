@@ -75,49 +75,52 @@ export const NewsSection: FC<INewsSectionProps> = ({ newsData }) => {
         >
           {newsData.results.map((news, index) => (
               <SwiperSlide key={index}>
-                <motion.div
-                    className="rounded-3xl cursor-pointer overflow-hidden shadow-2xl group h-[500px] relative"
-                    variants={slideVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                >
-                  <Image
-                      src={addMediaUrl(news.banner, 'news-banner')}
-                      layout="fill"
-                      objectFit="cover"
-                      alt={`Slide ${index + 1}`}
-                      className="w-full h-auto"
-                  />
-                  <div className="absolute bottom-0 p-10 w-full bg-gradient-to-t from-black to-transparent flex flex-col justify-end z-10">
-                    <div className="text-white flex items-end">
-                      <div>
-                        <h3 className="font-baskervville text-2xl md:text-5xl line-clamp-2">
-                          {news.title}
-                        </h3>
-                        <p className="text-sm md:text-base line-clamp-2">
-                          {moment(news.created_at).format('LL')}
-                        </p>
-                      </div>
-                      <i className="fa-light fa-arrow-up-right p-5 rounded-xl text-2xl"></i>
-                    </div>
-                  </div>
-
+                <Link href={`/news/${news?.slug}`}>
                   <motion.div
-                      whileHover={{ opacity: 1 }}
-                      className="absolute inset-0 flex items-center justify-center bg-green-500 bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+                      className="rounded-3xl cursor-pointer overflow-hidden shadow-2xl group h-[500px] relative"
+                      variants={slideVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{once: true}}
                   >
-                    <Link href={`/news/${news.slug}`}>
-                      <i className="fa-solid fa-eye text-white text-4xl"></i>
-                    </Link>
+                    <Image
+                        src={addMediaUrl(news.banner, 'news-banner')}
+                        layout="fill"
+                        objectFit="cover"
+                        alt={`Slide ${index + 1}`}
+                        className="w-full h-auto"
+                    />
+                    <div
+                        className="absolute bottom-0 p-10 w-full bg-gradient-to-t from-black to-transparent flex flex-col justify-end z-10">
+                      <div className="text-white flex items-end">
+                        <div>
+                          <h3 className="font-baskervville text-2xl md:text-5xl line-clamp-2">
+                            {news.title}
+                          </h3>
+                          <p className="text-sm md:text-base line-clamp-2">
+                            {moment(news.created_at).format('LL')}
+                          </p>
+                        </div>
+                        <i className="fa-light fa-arrow-up-right p-5 rounded-xl text-2xl"></i>
+                      </div>
+                    </div>
+
+                    <motion.div
+                        whileHover={{opacity: 1}}
+                        className="absolute inset-0 flex items-center justify-center bg-green-500 bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+                    >
+                      <Link href={`/news/${news.slug}`}>
+                        <i className="fa-solid fa-eye text-white text-4xl"></i>
+                      </Link>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
+                </Link>
               </SwiperSlide>
           ))}
         </Swiper>
 
         <div className="text-center">
-          <Button text="Barchasini ko`rish" href="/news" />
+          <Button text="Barchasini ko`rish" href="/news"/>
         </div>
       </div>
   );

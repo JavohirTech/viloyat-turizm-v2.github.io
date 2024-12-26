@@ -14,7 +14,7 @@ export const OurPartnersSection:FC<OurPartnersSectionProps> = ({partnersData}) =
       <div className="p-4 mt-10 bg-gray-50">
         <div className="container mx-auto pt-5">
           <h1 className="text-center font-baskervville text-3xl md:text-5xl font-light text-green-500">{t("Bizning hamkorlarimiz")}</h1>
-          <p className="text-center text-gray-500 text-sm md:text-base">{t("Hamkor bo`lishni xohlasangiz biz bilan bog`laning")}</p>
+          {/*<p className="text-center text-gray-500 text-sm md:text-base">{t("Hamkor bo`lishni xohlasangiz biz bilan bog`laning")}</p>*/}
           <div className="flex flex-wrap items-center justify-center lg:justify-between space-y-10 md:space-y-0 md:space-x-20 p-10">
             {
               partnersData.results.map((partner) => (

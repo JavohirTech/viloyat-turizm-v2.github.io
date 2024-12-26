@@ -44,31 +44,10 @@ export const Footer = () => {
               <h2 className="text-2xl font-semibold mb-4">{t("Ish vaqtlarimiz")}</h2>
               <ul className={"space-y-2"}>
                 <li>
-                  Dushanba: 09:30 - 17:30
+                  Dushanba-Juma: 09:00 - 18:00
                 </li>
                 <li>
-                  Seshanba: 09:30 - 17:30
-                </li>
-                <li>
-                  Tushlik: 13:00 - 14:00
-                </li>
-                <li>
-                  Chorshanba: 09:30 - 17:30
-                </li>
-                <li>
-                  Payshanba: 09:30 - 17:30
-                </li>
-                <li>
-                  Juma: 09:30 - 17:30
-                </li>
-                <li>
-                  Shanba: 09:30 - 15:30
-                </li>
-                <li>
-                  Yakshanba: Dam olish kuni
-                </li>
-                <li>
-                  Tushlik: 13:00 - 14:00
+                  Tushlik: 12:00 - 13:00
                 </li>
               </ul>
             </div>

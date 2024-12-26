@@ -133,7 +133,7 @@ const Page = () => {
 
   return (
       <div>
-        <PageHeader title={"Turizm turlari"} />
+        <PageHeader title={t("Turizm-turlari")} />
         <div className="container mx-auto my-20 px-5">
           <motion.div
               className="border border-green-500 w-full my-5 rounded-xl flex items-center"

@@ -27,7 +27,7 @@ export const newsSvc:INewsService = {
       return data;
     } catch (e) {
       console.error(e);
-      throw new Error("Failed to fetch news");
+      throw new Error
     }
   },
 

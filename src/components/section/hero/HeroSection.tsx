@@ -2,12 +2,12 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { socialMediaSvc } from "@/services/socialMediaSvc";
 import { useQuery } from "react-query";
 import { INewsResponse } from "@/types/news";
 import { addMediaUrl } from "@/helpers/addMediaUrl";
 import { useTranslations } from "next-intl";
+import {Link} from "@/i18n/routing";
 
 interface IHeroSectionProps {
   newsData: INewsResponse;

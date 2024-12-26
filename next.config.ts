@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['picsum.photos', 'g5wnssm9-8000.euw.devtunnels.ms'],
+    domains: ['picsum.photos', 'namturapi.fazo-software.uz'],
   },
 };
 

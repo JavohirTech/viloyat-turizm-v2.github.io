@@ -3,7 +3,7 @@ export const navLinks: NavLinkProps[] = [
   {href: "/news", label: "Yangiliklar"},
   {href: "/flowers-festival", label: "Gullar bayrami"},
   // {href: "/tourist-packages", label: "Tur paketlar"},
-  {href: "/photo-gallery", label: "Foto galeriya"},
+  {href: "/photo-gallery", label: "Turizm-turlari"},
   {href: "/about-us", label: "Biz haqimizda"}
 ]
 
